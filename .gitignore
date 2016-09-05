@@ -1,0 +1,14 @@
+# Qt Creator Project file
+
+AutomataCelular1D.pro.user
+
+# Compiled Object files
+
+*.o
+*.obj
+
+# Backup files
+
+*.swp
+*.*~
+
