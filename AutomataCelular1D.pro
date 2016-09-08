@@ -13,8 +13,15 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    automata.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    automata.h
 
 FORMS    += mainwindow.ui
+
+DISTFILES +=
+
+RESOURCES += \
+    resources.qrc
