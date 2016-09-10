@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QIntValidator *v = new QIntValidator(1, 10000, this);
+    QIntValidator *v = new QIntValidator(1, 762, this);
     ui->lengthLineEdit->setValidator(v);
 
     v = new QIntValidator(0, 255, this);
@@ -23,24 +23,48 @@ MainWindow::MainWindow(QWidget *parent) :
     v = new QIntValidator(0, 100, this);
     ui->percentLineEdit->setValidator(v);
 
-    automata = new Automata(this);
-    QVBoxLayout *vbox = new QVBoxLayout;
-    vbox->addWidget(automata);
-    ui->evolutionGroupBox->setLayout(vbox);
-
     protoItem = new QTableWidgetItem(tr("0"));
     protoItem->setTextAlignment(Qt::AlignCenter);
 
-    dist = std::uniform_int_distribution<int>(0, automata->getSize()-1);
-    setTape();
+    automata = new Automata(this);
+    on_lengthLineEdit_editingFinished();
+    on_ruleLineEdit_editingFinished();
+    on_timeLineEdit_editingFinished();
 
-    connect(ui->tapeTableWidget, SIGNAL(cellChanged(int,int)),
-            this, SLOT(cell_changed(int,int)));
+    QVBoxLayout *vbox = new QVBoxLayout;
+    vbox->addWidget(automata, 0, Qt::AlignCenter);
+    ui->evolutionGroupBox->setLayout(vbox);
+
+    frecuencia = new Frecuencia(this);
+    vbox = new QVBoxLayout;
+    vbox->addWidget(frecuencia, 0, Qt::AlignCenter);
+    ui->frequencyGroupBox->setLayout(vbox);
+
+    connect(ui->stopPushButton, SIGNAL(clicked()), automata, SLOT(reset()));
+    connect(ui->stopPushButton, SIGNAL(clicked()), frecuencia, SLOT(reset()));
+    connect(ui->playPushButton, SIGNAL(clicked()), automata, SLOT(play()));
+    connect(ui->pausePushButton, SIGNAL(clicked()), automata, SLOT(pause()));
+    connect(automata, SIGNAL(newStep(int)), frecuencia, SLOT(addFrequency(int)));
 }
 
 MainWindow::~MainWindow(){
     delete ui;
     delete automata;
+}
+
+void MainWindow::resizeEvent(QResizeEvent *){
+    ui->evolutionGroupBox->resize((width()-60)/2+1, height()-209);
+
+    ui->frequencyGroupBox->resize((width()-60)/2+1, height()-209);
+    ui->frequencyGroupBox->move(width()/2+10, 170);
+
+    int size;
+    if( ui->evolutionGroupBox->width() + 20 < ui->evolutionGroupBox->height() )
+        size = ui->evolutionGroupBox->width() - 20;
+    else
+        size = ui->evolutionGroupBox->height() - 40;
+    automata->setFixedSize(size, size);
+    frecuencia->setFixedSize(size, size);
 }
 
 void MainWindow::on_lengthLineEdit_editingFinished(){
@@ -54,8 +78,13 @@ void MainWindow::on_lengthLineEdit_editingFinished(){
     }
 
     automata->setSize(str.toInt());
+    frecuencia->setMaxOnes(automata->getSize());
     dist = std::uniform_int_distribution<int>(0, automata->getSize()-1);
-    setTape();
+
+    int oldSize = ui->tapeTableWidget->columnCount();
+    ui->tapeTableWidget->setColumnCount(automata->getSize());
+    for(int i=oldSize;i<automata->getSize();i++)
+        ui->tapeTableWidget->setItem(0, i, protoItem->clone());
 }
 
 void MainWindow::on_ruleLineEdit_editingFinished(){
@@ -69,6 +98,7 @@ void MainWindow::on_ruleLineEdit_editingFinished(){
     }
 
     automata->setRule(str.toInt());
+    frecuencia->reset();
 }
 
 void MainWindow::on_timeLineEdit_editingFinished(){
@@ -82,71 +112,28 @@ void MainWindow::on_timeLineEdit_editingFinished(){
     }
 
     automata->setTime(str.toLongLong());
-}
-
-void MainWindow::on_percentLineEdit_editingFinished(){
-    int pos = 0;
-    QString str = ui->percentLineEdit->text();
-    QIntValidator *v = (QIntValidator*)ui->percentLineEdit->validator();
-
-    if( v->validate(str, pos) != QValidator::Acceptable ){
-        ui->percentLineEdit->setText(QString::number(automata->getRule()));
-        return;
-    }
-
-    automata->setPercentOnes(str.toInt());
-}
-
-void MainWindow::setTape(){
-    disconnect(ui->tapeTableWidget, SIGNAL(cellChanged(int,int)),
-            this, SLOT(cell_changed(int,int)));
-
-    int oldSize = ui->tapeTableWidget->columnCount();
-    bool tape[automata->getSize()];
-
-    ui->tapeTableWidget->setColumnCount(automata->getSize());
-    ui->tapeTableWidget->updateGeometry();
-
-    for(int i=0;i<oldSize && i<automata->getSize();i++)
-        tape[i] = ui->tapeTableWidget->item(0, i)->text() == "1";
-
-    for(int i=oldSize;i<automata->getSize();i++){
-        ui->tapeTableWidget->setItem(0, i, protoItem->clone());
-        tape[i] = false;
-    }
-    connect(ui->tapeTableWidget, SIGNAL(cellChanged(int,int)),
-            this, SLOT(cell_changed(int,int)));
-
-    automata->setTape(tape);
+    frecuencia->setTime(automata->getTime());
 }
 
 void MainWindow::on_randomPushButton_clicked(){
     int size = automata->getSize();
-    for(int i=0;i<size;i++)
-        ui->tapeTableWidget->item(0, i)->setText(tr("0"));
+    bool tape[size];
 
-    int numOnes = automata->getPercentOnes() * size / 100;
+    for(int i=0;i<size;i++){
+        ui->tapeTableWidget->item(0, i)->setText(tr("0"));
+        tape[i] = false;
+    }
+
+    int percent = ui->percentLineEdit->text().toInt();
+    int numOnes = percent * size / 100;
     int j;
     for(int i=0;i<numOnes;i++){
         do j = dist(generator);
         while( ui->tapeTableWidget->item(0, j)->text() == "1" );
         ui->tapeTableWidget->item(0, j)->setText(tr("1"));
+        tape[j] = true;
     }
 
-    bool tape[automata->getSize()];
-    for(int i=0;i<automata->getSize();i++)
-        tape[i] = ui->tapeTableWidget->item(0, i)->text() == "1";
     automata->setTape(tape);
-}
-
-void MainWindow::cell_changed(int row, int col){
-    if( row != 0 || ui->tapeTableWidget->item(row, col) == NULL )
-        return;
-
-    automata->setCell(col, ui->tapeTableWidget->item(0, col)->text() == "1");
-
-    bool tape[automata->getSize()];
-    for(int i=0;i<automata->getSize();i++)
-        tape[i] = ui->tapeTableWidget->item(row, i)->text() == "1";
-    automata->setTape(tape);
+    frecuencia->reset();
 }

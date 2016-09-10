@@ -50,7 +50,6 @@ public:
     QTableWidget *tapeTableWidget;
     QGroupBox *evolutionGroupBox;
     QGroupBox *frequencyGroupBox;
-    QWidget *frequencyWidget;
     QMenuBar *menuBar;
     QMenu *menu_File;
 
@@ -60,7 +59,6 @@ public:
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(800, 600);
         MainWindow->setMinimumSize(QSize(800, 600));
-        MainWindow->setMaximumSize(QSize(800, 600));
         QFont font;
         font.setPointSize(12);
         MainWindow->setFont(font);
@@ -71,6 +69,7 @@ public:
         playPushButton = new QPushButton(centralWidget);
         playPushButton->setObjectName(QStringLiteral("playPushButton"));
         playPushButton->setGeometry(QRect(80, 130, 32, 32));
+        playPushButton->setCursor(QCursor(Qt::PointingHandCursor));
         QIcon icon;
         icon.addFile(QStringLiteral(":/images/play.png"), QSize(), QIcon::Normal, QIcon::Off);
         playPushButton->setIcon(icon);
@@ -79,6 +78,7 @@ public:
         pausePushButton = new QPushButton(centralWidget);
         pausePushButton->setObjectName(QStringLiteral("pausePushButton"));
         pausePushButton->setGeometry(QRect(140, 130, 32, 32));
+        pausePushButton->setCursor(QCursor(Qt::PointingHandCursor));
         QIcon icon1;
         icon1.addFile(QStringLiteral(":/images/pause.png"), QSize(), QIcon::Normal, QIcon::Off);
         pausePushButton->setIcon(icon1);
@@ -87,6 +87,7 @@ public:
         stopPushButton = new QPushButton(centralWidget);
         stopPushButton->setObjectName(QStringLiteral("stopPushButton"));
         stopPushButton->setGeometry(QRect(200, 130, 32, 32));
+        stopPushButton->setCursor(QCursor(Qt::PointingHandCursor));
         QIcon icon2;
         icon2.addFile(QStringLiteral(":/images/stop.png"), QSize(), QIcon::Normal, QIcon::Off);
         stopPushButton->setIcon(icon2);
@@ -145,7 +146,7 @@ public:
 
         initTapeGroupBox = new QGroupBox(centralWidget);
         initTapeGroupBox->setObjectName(QStringLiteral("initTapeGroupBox"));
-        initTapeGroupBox->setGeometry(QRect(299, 11, 479, 149));
+        initTapeGroupBox->setGeometry(QRect(299, 11, 481, 149));
         randomPushButton = new QPushButton(initTapeGroupBox);
         randomPushButton->setObjectName(QStringLiteral("randomPushButton"));
         randomPushButton->setGeometry(QRect(10, 30, 80, 27));
@@ -172,13 +173,10 @@ public:
         tapeTableWidget->verticalHeader()->setVisible(false);
         evolutionGroupBox = new QGroupBox(centralWidget);
         evolutionGroupBox->setObjectName(QStringLiteral("evolutionGroupBox"));
-        evolutionGroupBox->setGeometry(QRect(21, 171, 371, 389));
+        evolutionGroupBox->setGeometry(QRect(20, 170, 371, 391));
         frequencyGroupBox = new QGroupBox(centralWidget);
         frequencyGroupBox->setObjectName(QStringLiteral("frequencyGroupBox"));
-        frequencyGroupBox->setGeometry(QRect(408, 171, 370, 389));
-        frequencyWidget = new QWidget(frequencyGroupBox);
-        frequencyWidget->setObjectName(QStringLiteral("frequencyWidget"));
-        frequencyWidget->setGeometry(QRect(10, 30, 351, 351));
+        frequencyGroupBox->setGeometry(QRect(410, 170, 371, 391));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
