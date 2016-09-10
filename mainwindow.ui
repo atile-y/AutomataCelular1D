@@ -16,12 +16,6 @@
     <height>600</height>
    </size>
   </property>
-  <property name="maximumSize">
-   <size>
-    <width>800</width>
-    <height>600</height>
-   </size>
-  </property>
   <property name="font">
    <font>
     <pointsize>12</pointsize>
@@ -224,7 +218,7 @@
     <property name="geometry">
      <rect>
       <x>21</x>
-      <y>171</y>
+      <y>190</y>
       <width>371</width>
       <height>389</height>
      </rect>
@@ -237,7 +231,7 @@
     <property name="geometry">
      <rect>
       <x>408</x>
-      <y>171</y>
+      <y>190</y>
       <width>370</width>
       <height>389</height>
      </rect>
@@ -269,23 +263,6 @@
      <string>Run</string>
     </property>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>24</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menu_File">
-    <property name="title">
-     <string>&amp;Archivo</string>
-    </property>
-    <addaction name="action_Open_file"/>
-   </widget>
-   <addaction name="menu_File"/>
   </widget>
   <action name="action_Open_file">
    <property name="text">

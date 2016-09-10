@@ -21,6 +21,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+protected:
+    void resizeEvent(QResizeEvent *);
+
 private slots:
     void on_lengthLineEdit_editingFinished();
     void on_ruleLineEdit_editingFinished();

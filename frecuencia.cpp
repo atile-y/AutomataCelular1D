@@ -28,7 +28,6 @@ void Frecuencia::paintEvent(QPaintEvent *){
     painter.drawLine(10, 0, 10, height());
     painter.drawLine(0, height()-10, width(), height()-10);
 
-    cout << "m_nMaxOnes : " << m_nMaxOnes << endl;
     if( m_nMaxOnes > 0 ){
         painter.setPen(palette().dark().color());
         for(int i=10;i<=m_nMaxOnes;i+=10)

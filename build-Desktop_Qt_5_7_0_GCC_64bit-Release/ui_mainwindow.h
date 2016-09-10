@@ -19,8 +19,6 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenu>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QWidget>
@@ -49,8 +47,6 @@ public:
     QGroupBox *frequencyGroupBox;
     QWidget *frequencyWidget;
     QPushButton *runPushButton;
-    QMenuBar *menuBar;
-    QMenu *menu_File;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -58,7 +54,6 @@ public:
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(800, 600);
         MainWindow->setMinimumSize(QSize(800, 600));
-        MainWindow->setMaximumSize(QSize(800, 600));
         QFont font;
         font.setPointSize(12);
         MainWindow->setFont(font);
@@ -146,10 +141,10 @@ public:
         tapeTableWidget->verticalHeader()->setVisible(false);
         evolutionGroupBox = new QGroupBox(centralWidget);
         evolutionGroupBox->setObjectName(QStringLiteral("evolutionGroupBox"));
-        evolutionGroupBox->setGeometry(QRect(21, 171, 371, 389));
+        evolutionGroupBox->setGeometry(QRect(21, 190, 371, 389));
         frequencyGroupBox = new QGroupBox(centralWidget);
         frequencyGroupBox->setObjectName(QStringLiteral("frequencyGroupBox"));
-        frequencyGroupBox->setGeometry(QRect(408, 171, 370, 389));
+        frequencyGroupBox->setGeometry(QRect(408, 190, 370, 389));
         frequencyWidget = new QWidget(frequencyGroupBox);
         frequencyWidget->setObjectName(QStringLiteral("frequencyWidget"));
         frequencyWidget->setGeometry(QRect(10, 30, 351, 351));
@@ -157,15 +152,6 @@ public:
         runPushButton->setObjectName(QStringLiteral("runPushButton"));
         runPushButton->setGeometry(QRect(120, 140, 80, 27));
         MainWindow->setCentralWidget(centralWidget);
-        menuBar = new QMenuBar(MainWindow);
-        menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 800, 24));
-        menu_File = new QMenu(menuBar);
-        menu_File->setObjectName(QStringLiteral("menu_File"));
-        MainWindow->setMenuBar(menuBar);
-
-        menuBar->addAction(menu_File->menuAction());
-        menu_File->addAction(action_Open_file);
 
         retranslateUi(MainWindow);
 
@@ -190,7 +176,6 @@ public:
         evolutionGroupBox->setTitle(QApplication::translate("MainWindow", "Evoluci\303\263n del Aut\303\263mata", 0));
         frequencyGroupBox->setTitle(QApplication::translate("MainWindow", "Diagrama de Frecuencia", 0));
         runPushButton->setText(QApplication::translate("MainWindow", "Run", 0));
-        menu_File->setTitle(QApplication::translate("MainWindow", "&Archivo", 0));
     } // retranslateUi
 
 };

@@ -28,12 +28,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     automata = new Automata(this);
     QVBoxLayout *vbox = new QVBoxLayout;
-    vbox->addWidget(automata);
+    vbox->addWidget(automata, 0, Qt::AlignCenter);
     ui->evolutionGroupBox->setLayout(vbox);
 
     frecuencia = new Frecuencia(this);
+    frecuencia->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     vbox = new QVBoxLayout;
-    vbox->addWidget(frecuencia);
+    vbox->addWidget(frecuencia, 0, Qt::AlignCenter);
     ui->frequencyGroupBox->setLayout(vbox);
 
     on_lengthLineEdit_editingFinished();
@@ -55,6 +56,21 @@ MainWindow::~MainWindow(){
     delete frecuencia;
 }
 
+void MainWindow::resizeEvent(QResizeEvent *){
+    ui->evolutionGroupBox->resize((width()-60)/2+1, height()-209);
+
+    ui->frequencyGroupBox->resize((width()-60)/2+1, height()-209);
+    ui->frequencyGroupBox->move(width()/2+10, 190);
+
+    int size;
+    if( ui->evolutionGroupBox->width() + 20 < ui->evolutionGroupBox->height() )
+        size = ui->evolutionGroupBox->width() - 20;
+    else
+        size = ui->evolutionGroupBox->height() - 40;
+    automata->setFixedSize(size, size);
+    frecuencia->setFixedSize(size, size);
+}
+
 void MainWindow::on_lengthLineEdit_editingFinished(){
     int pos = 0;
     QString str = ui->lengthLineEdit->text();
@@ -65,9 +81,7 @@ void MainWindow::on_lengthLineEdit_editingFinished(){
         return;
     }
 
-    cout << "str.toInt() : " << str.toInt() << endl;
     automata->setSize(str.toInt());
-    cout << "automata->getSize() : " << automata->getSize() << endl;
     frecuencia->setMaxOnes(automata->getSize());
     dist = std::uniform_int_distribution<int>(0, automata->getSize()-1);
 
