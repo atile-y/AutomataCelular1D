@@ -32,9 +32,6 @@ class Ui_MainWindow
 public:
     QAction *action_Open_file;
     QWidget *centralWidget;
-    QPushButton *playPushButton;
-    QPushButton *pausePushButton;
-    QPushButton *stopPushButton;
     QWidget *layoutWidget;
     QFormLayout *formLayout;
     QLabel *lengthLabel;
@@ -51,6 +48,7 @@ public:
     QGroupBox *evolutionGroupBox;
     QGroupBox *frequencyGroupBox;
     QWidget *frequencyWidget;
+    QPushButton *runPushButton;
     QMenuBar *menuBar;
     QMenu *menu_File;
 
@@ -68,30 +66,6 @@ public:
         action_Open_file->setObjectName(QStringLiteral("action_Open_file"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        playPushButton = new QPushButton(centralWidget);
-        playPushButton->setObjectName(QStringLiteral("playPushButton"));
-        playPushButton->setGeometry(QRect(80, 130, 32, 32));
-        QIcon icon;
-        icon.addFile(QStringLiteral(":/images/play.png"), QSize(), QIcon::Normal, QIcon::Off);
-        playPushButton->setIcon(icon);
-        playPushButton->setIconSize(QSize(32, 32));
-        playPushButton->setFlat(true);
-        pausePushButton = new QPushButton(centralWidget);
-        pausePushButton->setObjectName(QStringLiteral("pausePushButton"));
-        pausePushButton->setGeometry(QRect(140, 130, 32, 32));
-        QIcon icon1;
-        icon1.addFile(QStringLiteral(":/images/pause.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pausePushButton->setIcon(icon1);
-        pausePushButton->setIconSize(QSize(32, 32));
-        pausePushButton->setFlat(true);
-        stopPushButton = new QPushButton(centralWidget);
-        stopPushButton->setObjectName(QStringLiteral("stopPushButton"));
-        stopPushButton->setGeometry(QRect(200, 130, 32, 32));
-        QIcon icon2;
-        icon2.addFile(QStringLiteral(":/images/stop.png"), QSize(), QIcon::Normal, QIcon::Off);
-        stopPushButton->setIcon(icon2);
-        stopPushButton->setIconSize(QSize(32, 32));
-        stopPushButton->setFlat(true);
         layoutWidget = new QWidget(centralWidget);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
         layoutWidget->setGeometry(QRect(21, 40, 262, 83));
@@ -179,6 +153,9 @@ public:
         frequencyWidget = new QWidget(frequencyGroupBox);
         frequencyWidget->setObjectName(QStringLiteral("frequencyWidget"));
         frequencyWidget->setGeometry(QRect(10, 30, 351, 351));
+        runPushButton = new QPushButton(centralWidget);
+        runPushButton->setObjectName(QStringLiteral("runPushButton"));
+        runPushButton->setGeometry(QRect(120, 140, 80, 27));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -200,9 +177,6 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Automata Celular 1D", 0));
         action_Open_file->setText(QApplication::translate("MainWindow", "Abrir archivo", 0));
         action_Open_file->setShortcut(QApplication::translate("MainWindow", "Ctrl+O", 0));
-        playPushButton->setText(QString());
-        pausePushButton->setText(QString());
-        stopPushButton->setText(QString());
         lengthLabel->setText(QApplication::translate("MainWindow", "Longitud del Aut\303\263mata", 0));
         lengthLineEdit->setText(QApplication::translate("MainWindow", "300", 0));
         ruleLabel->setText(QApplication::translate("MainWindow", "Regla", 0));
@@ -215,6 +189,7 @@ public:
         percentLineEdit->setText(QApplication::translate("MainWindow", "50", 0));
         evolutionGroupBox->setTitle(QApplication::translate("MainWindow", "Evoluci\303\263n del Aut\303\263mata", 0));
         frequencyGroupBox->setTitle(QApplication::translate("MainWindow", "Diagrama de Frecuencia", 0));
+        runPushButton->setText(QApplication::translate("MainWindow", "Run", 0));
         menu_File->setTitle(QApplication::translate("MainWindow", "&Archivo", 0));
     } // retranslateUi
 

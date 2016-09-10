@@ -23,24 +23,36 @@ MainWindow::MainWindow(QWidget *parent) :
     v = new QIntValidator(0, 100, this);
     ui->percentLineEdit->setValidator(v);
 
+    protoItem = new QTableWidgetItem(tr("0"));
+    protoItem->setTextAlignment(Qt::AlignCenter);
+
     automata = new Automata(this);
     QVBoxLayout *vbox = new QVBoxLayout;
     vbox->addWidget(automata);
     ui->evolutionGroupBox->setLayout(vbox);
 
-    protoItem = new QTableWidgetItem(tr("0"));
-    protoItem->setTextAlignment(Qt::AlignCenter);
+    frecuencia = new Frecuencia(this);
+    vbox = new QVBoxLayout;
+    vbox->addWidget(frecuencia);
+    ui->frequencyGroupBox->setLayout(vbox);
 
-    dist = std::uniform_int_distribution<int>(0, automata->getSize()-1);
-    setTape();
+    on_lengthLineEdit_editingFinished();
+    on_ruleLineEdit_editingFinished();
+    on_timeLineEdit_editingFinished();
 
-    connect(ui->tapeTableWidget, SIGNAL(cellChanged(int,int)),
-            this, SLOT(cell_changed(int,int)));
+    bool t[automata->getSize()];
+    for(bool &i : t)
+        i = false;
+    automata->setTape(t);
+
+    connect(automata, SIGNAL(endEvolve(QVector<int>)),
+            frecuencia, SLOT(setData(QVector<int>)));
 }
 
 MainWindow::~MainWindow(){
     delete ui;
     delete automata;
+    delete frecuencia;
 }
 
 void MainWindow::on_lengthLineEdit_editingFinished(){
@@ -53,9 +65,17 @@ void MainWindow::on_lengthLineEdit_editingFinished(){
         return;
     }
 
+    cout << "str.toInt() : " << str.toInt() << endl;
     automata->setSize(str.toInt());
+    cout << "automata->getSize() : " << automata->getSize() << endl;
+    frecuencia->setMaxOnes(automata->getSize());
     dist = std::uniform_int_distribution<int>(0, automata->getSize()-1);
-    setTape();
+
+    int oldSize = ui->tapeTableWidget->columnCount();
+    ui->tapeTableWidget->setColumnCount(automata->getSize());
+
+    for(int i=oldSize;i<automata->getSize();i++)
+        ui->tapeTableWidget->setItem(0, i, protoItem->clone());
 }
 
 void MainWindow::on_ruleLineEdit_editingFinished(){
@@ -81,43 +101,7 @@ void MainWindow::on_timeLineEdit_editingFinished(){
         return;
     }
 
-    automata->setTime(str.toLongLong());
-}
-
-void MainWindow::on_percentLineEdit_editingFinished(){
-    int pos = 0;
-    QString str = ui->percentLineEdit->text();
-    QIntValidator *v = (QIntValidator*)ui->percentLineEdit->validator();
-
-    if( v->validate(str, pos) != QValidator::Acceptable ){
-        ui->percentLineEdit->setText(QString::number(automata->getRule()));
-        return;
-    }
-
-    automata->setPercentOnes(str.toInt());
-}
-
-void MainWindow::setTape(){
-    disconnect(ui->tapeTableWidget, SIGNAL(cellChanged(int,int)),
-            this, SLOT(cell_changed(int,int)));
-
-    int oldSize = ui->tapeTableWidget->columnCount();
-    bool tape[automata->getSize()];
-
-    ui->tapeTableWidget->setColumnCount(automata->getSize());
-    ui->tapeTableWidget->updateGeometry();
-
-    for(int i=0;i<oldSize && i<automata->getSize();i++)
-        tape[i] = ui->tapeTableWidget->item(0, i)->text() == "1";
-
-    for(int i=oldSize;i<automata->getSize();i++){
-        ui->tapeTableWidget->setItem(0, i, protoItem->clone());
-        tape[i] = false;
-    }
-    connect(ui->tapeTableWidget, SIGNAL(cellChanged(int,int)),
-            this, SLOT(cell_changed(int,int)));
-
-    automata->setTape(tape);
+    automata->setTime(str.toInt());
 }
 
 void MainWindow::on_randomPushButton_clicked(){
@@ -125,28 +109,19 @@ void MainWindow::on_randomPushButton_clicked(){
     for(int i=0;i<size;i++)
         ui->tapeTableWidget->item(0, i)->setText(tr("0"));
 
-    int numOnes = automata->getPercentOnes() * size / 100;
+    int percent = ui->percentLineEdit->text().toInt();
+    int numOnes = percent * size / 100;
     int j;
     for(int i=0;i<numOnes;i++){
         do j = dist(generator);
         while( ui->tapeTableWidget->item(0, j)->text() == "1" );
         ui->tapeTableWidget->item(0, j)->setText(tr("1"));
     }
+}
 
+void MainWindow::on_runPushButton_clicked(){
     bool tape[automata->getSize()];
     for(int i=0;i<automata->getSize();i++)
         tape[i] = ui->tapeTableWidget->item(0, i)->text() == "1";
-    automata->setTape(tape);
-}
-
-void MainWindow::cell_changed(int row, int col){
-    if( row != 0 || ui->tapeTableWidget->item(row, col) == NULL )
-        return;
-
-    automata->setCell(col, ui->tapeTableWidget->item(0, col)->text() == "1");
-
-    bool tape[automata->getSize()];
-    for(int i=0;i<automata->getSize();i++)
-        tape[i] = ui->tapeTableWidget->item(row, i)->text() == "1";
     automata->setTape(tape);
 }

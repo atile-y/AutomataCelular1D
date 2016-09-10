@@ -14,14 +14,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    automata.cpp
+    automata.cpp \
+    frecuencia.cpp
 
 HEADERS  += mainwindow.h \
-    automata.h
+    automata.h \
+    frecuencia.h
 
 FORMS    += mainwindow.ui
 
 DISTFILES +=
 
-RESOURCES += \
-    resources.qrc
+RESOURCES +=

@@ -6,19 +6,8 @@
 using namespace std;
 
 Automata::Automata(QWidget *parent) : QWidget(parent){
-    m_nSize = 300;
-    m_nRule = 90;
-    m_nPercentOnes = 50;
-    m_bTape = new bool*[2];
-    m_bTape[0] = new bool[300];
-    m_bTape[1] = new bool[300];
-    m_nIdx = 0;
-
-    m_uidDist = std::uniform_int_distribution<int>(0, 299);
     setBackgroundRole(QPalette::Base);
     setAutoFillBackground(true);
-    setFixedHeight(351);
-    setFixedWidth(351);
 
     m_whiteBrush = QBrush(Qt::white);
     m_blackBrush = QBrush(Qt::black);
@@ -28,50 +17,45 @@ Automata::~Automata(){
     delete []m_bTape;
 }
 
-bool Automata::getCell(int i){
-    if( i < 0 || i >= m_nSize )
-        return false;
-    return m_bTape[0][i];
-}
-
-void Automata::setSize(int s){
-    m_nSize = s;
-    m_nIdx = 0;
-
-    delete m_bTape[0];
-    delete m_bTape[1];
+void Automata::setTape(bool *arr){
+    QVector<int> freq;
+    int numOnes = 0;
+    m_bTape = new bool*[m_nTime];
 
     m_bTape[0] = new bool[m_nSize];
-    m_bTape[1] = new bool[m_nSize];
-}
-
-void Automata::setCell(int i, bool v){
-    if( i < 0 || i >= m_nSize )
-        return;
-
-    m_bTape[0][i] = v;
-    m_nIdx = 0;
-    update();
-}
-
-void Automata::setTape(bool *arr){
-    for(int i=0;i<m_nSize;i++)
+    for(int i=0;i<m_nSize;i++){
         m_bTape[0][i] = arr[i];
+        if( m_bTape[0][i] )
+            numOnes++;
+    }
+    freq.append(numOnes);
 
-    m_nIdx = 0;
+    for(int i=1;i<m_nTime;i++){
+        m_bTape[i] = new bool[m_nSize];
+        numOnes = 0;
+        for(int j=0;j<m_nSize;j++){
+            m_bTape[i][j] = rule(m_bTape[i-1][(j+m_nSize-1)%m_nSize],
+                                 m_bTape[i-1][j],
+                                 m_bTape[i-1][(j+1)%m_nSize]);
+            if( m_bTape[i][j] )
+                numOnes++;
+        }
+        freq.append(numOnes);
+    }
+
+    emit endEvolve(freq);
     update();
 }
 
 void Automata::paintEvent(QPaintEvent *){
-    double tam = (width() - 1.0) / m_nSize;
-
+    double tam = ((double)width()) / m_nSize;
     QPainter painter(this);
 
-    for(int t=0;t<m_nSize;t++){
+    for(int t=0;t<m_nTime;t++){
         for(int i=0;i<m_nSize;i++){
             painter.save();
             painter.translate(i*tam, t*tam);
-            if( m_bTape[m_nIdx][i] ){
+            if( m_bTape[t][i] ){
                 painter.setBrush(m_blackBrush);
                 painter.setPen(QPen(Qt::black));
             }
@@ -82,14 +66,7 @@ void Automata::paintEvent(QPaintEvent *){
             painter.drawRect(0, 0, tam, tam);
             painter.restore();
         }
-        updateTape();
     }
-}
-
-void Automata::updateTape(){
-    for(int i=0;i<m_nSize;i++)
-        m_bTape[(m_nIdx+1)%2][i] = rule(m_bTape[m_nIdx][(i+m_nSize-1)%m_nSize], m_bTape[m_nIdx][i], m_bTape[m_nIdx][(i+1)%m_nSize]);
-    m_nIdx = (m_nIdx+1)%2;
 }
 
 bool Automata::rule(bool a, bool b, bool c){
