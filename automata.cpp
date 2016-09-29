@@ -84,24 +84,24 @@ void Automata::pause(){
 void Automata::paintEvent(QPaintEvent *){
     double tam = ((double)width()) / m_nSize;
 
-    m_qPainter->
+    QPainter painter(this);
 
-//    for(long long int t=0;t<=m_nIdx;t++){
+    for(long long int t=0;t<=m_nIdx;t++){
         for(int i=0;i<m_nSize;i++){
-            painter->save();
-            painter->translate(i*tam, m_nIdx*tam);
-            if( m_bAutomata[m_nIdx][i] ){
-                painter->setBrush(m_blackBrush);
-                painter->setPen(QPen(Qt::black));
+            painter.save();
+            painter.translate(i*tam, t*tam);
+            if( m_bAutomata[t][i] ){
+                painter.setBrush(m_blackBrush);
+                painter.setPen(QPen(Qt::black));
             }
             else{
-                painter->setBrush(m_whiteBrush);
-                painter->setPen(QPen(Qt::white));
+                painter.setBrush(m_whiteBrush);
+                painter.setPen(QPen(Qt::white));
             }
-            painter->drawRect(0, 0, tam, tam);
-            painter->restore();
+            painter.drawRect(0, 0, tam, tam);
+            painter.restore();
         }
-  //  }
+    }
 }
 
 void Automata::step(){

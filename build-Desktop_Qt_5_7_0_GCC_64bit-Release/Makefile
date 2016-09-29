@@ -665,12 +665,19 @@ moc_mainwindow.cpp: ../automata.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qshareddata.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qhash.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/QPainter \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpainter.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontinfo.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfont.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/QTimer \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qwidget.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpalette.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfont.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontmetrics.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontinfo.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qsizepolicy.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qcursor.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qkeysequence.h \
@@ -698,8 +705,6 @@ moc_mainwindow.cpp: ../automata.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextcursor.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextformat.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QTableWidgetItem \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtablewidget.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtableview.h \
@@ -796,12 +801,19 @@ moc_automata.cpp: ../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/QBrush \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qshareddata.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qhash.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/QPainter \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpainter.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontinfo.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfont.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/QTimer \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qwidget.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpalette.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfont.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontmetrics.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontinfo.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qsizepolicy.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qcursor.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qkeysequence.h \
@@ -1020,12 +1032,19 @@ main.o: ../main.cpp ../mainwindow.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qshareddata.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qhash.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/QPainter \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpainter.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontinfo.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfont.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/QTimer \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qwidget.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpalette.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfont.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontmetrics.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontinfo.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qsizepolicy.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qcursor.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qkeysequence.h \
@@ -1053,8 +1072,6 @@ main.o: ../main.cpp ../mainwindow.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextcursor.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextformat.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QTableWidgetItem \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtablewidget.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtableview.h \
@@ -1158,12 +1175,19 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qshareddata.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qhash.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/QPainter \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpainter.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontinfo.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfont.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/QTimer \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qwidget.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpalette.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfont.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontmetrics.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontinfo.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qsizepolicy.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qcursor.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qkeysequence.h \
@@ -1191,8 +1215,6 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextcursor.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextformat.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QTableWidgetItem \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtablewidget.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtableview.h \
@@ -1323,12 +1345,19 @@ automata.o: ../automata.cpp ../automata.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qshareddata.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qhash.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/QPainter \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpainter.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontinfo.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfont.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/QTimer \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qwidget.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpalette.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfont.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontmetrics.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontinfo.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qsizepolicy.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qcursor.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qkeysequence.h \
@@ -1345,11 +1374,7 @@ automata.o: ../automata.cpp ../automata.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qfile.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qfiledevice.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qvector2d.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/QPainter \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpainter.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o automata.o ../automata.cpp
 
 frecuencia.o: ../frecuencia.cpp ../frecuencia.h \
@@ -1449,7 +1474,11 @@ frecuencia.o: ../frecuencia.cpp ../frecuencia.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qfile.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qfiledevice.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qvector2d.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/QPainter \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpainter.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o frecuencia.o ../frecuencia.cpp
 
 qrc_resources.o: qrc_resources.cpp 
