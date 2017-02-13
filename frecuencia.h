@@ -1,33 +1,35 @@
 #ifndef FRECUENCIA_H
 #define FRECUENCIA_H
 
-#include <QWidget>
+#include <QOpenGLWidget>
 
-class Frecuencia : public QWidget
-{
+class Frecuencia : public QOpenGLWidget{
     Q_OBJECT
+
 public:
-    Frecuencia(QWidget *parent = 0);
+    explicit Frecuencia(QWidget *parent = 0);
+    ~Frecuencia();
 
-    long long int getTime(){ return m_llnTime; }
-    int getMaxOnes(){ return m_nMaxOnes; }
-    int getFrequency(long long int);
+    uint getMaxOnes(){ return m_nMaxOnes; }
 
-    void setTime(long long int);
-    void setMaxOnes(int);
-    void setFrequency(long long int, int);
+    void setTime(ulong t){ m_nTime = t; }
+    void setMaxOnes(uint m){ m_nMaxOnes = m; }
+
+    void reset();
 
 public slots:
-    void reset();
-    void addFrequency(int);
+    void Idle();
+    void addFrequency(uint);
 
 protected:
-    void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
+    void initializeGL();
+    void resizeGL(int, int);
+    void paintGL();
 
 private:
-    long long int m_llnTime;
-    int m_nMaxOnes;
-    QVector<int> m_vFreq;
+    ulong m_nTime;
+    uint m_nMaxOnes;
+    QVector<uint> m_vFreq;
 };
 
 #endif // FRECUENCIA_H

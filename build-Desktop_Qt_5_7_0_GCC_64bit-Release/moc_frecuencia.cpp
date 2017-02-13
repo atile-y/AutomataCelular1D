@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Frecuencia_t {
     QByteArrayData data[4];
-    char stringdata0[31];
+    char stringdata0[30];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,12 +30,12 @@ struct qt_meta_stringdata_Frecuencia_t {
 static const qt_meta_stringdata_Frecuencia_t qt_meta_stringdata_Frecuencia = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "Frecuencia"
-QT_MOC_LITERAL(1, 11, 5), // "reset"
-QT_MOC_LITERAL(2, 17, 0), // ""
-QT_MOC_LITERAL(3, 18, 12) // "addFrequency"
+QT_MOC_LITERAL(1, 11, 4), // "Idle"
+QT_MOC_LITERAL(2, 16, 0), // ""
+QT_MOC_LITERAL(3, 17, 12) // "addFrequency"
 
     },
-    "Frecuencia\0reset\0\0addFrequency"
+    "Frecuencia\0Idle\0\0addFrequency"
 };
 #undef QT_MOC_LITERAL
 
@@ -58,7 +58,7 @@ static const uint qt_meta_data_Frecuencia[] = {
 
  // slots: parameters
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,    2,
+    QMetaType::Void, QMetaType::UInt,    2,
 
        0        // eod
 };
@@ -69,15 +69,15 @@ void Frecuencia::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Frecuencia *_t = static_cast<Frecuencia *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->reset(); break;
-        case 1: _t->addFrequency((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 0: _t->Idle(); break;
+        case 1: _t->addFrequency((*reinterpret_cast< uint(*)>(_a[1]))); break;
         default: ;
         }
     }
 }
 
 const QMetaObject Frecuencia::staticMetaObject = {
-    { &QWidget::staticMetaObject, qt_meta_stringdata_Frecuencia.data,
+    { &QOpenGLWidget::staticMetaObject, qt_meta_stringdata_Frecuencia.data,
       qt_meta_data_Frecuencia,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
 };
 
@@ -92,12 +92,12 @@ void *Frecuencia::qt_metacast(const char *_clname)
     if (!_clname) return Q_NULLPTR;
     if (!strcmp(_clname, qt_meta_stringdata_Frecuencia.stringdata0))
         return static_cast<void*>(const_cast< Frecuencia*>(this));
-    return QWidget::qt_metacast(_clname);
+    return QOpenGLWidget::qt_metacast(_clname);
 }
 
 int Frecuencia::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QWidget::qt_metacall(_c, _id, _a);
+    _id = QOpenGLWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {

@@ -4,8 +4,8 @@
 #include "automata.h"
 #include "frecuencia.h"
 
+#include <QLabel>
 #include <QMainWindow>
-#include <QLineEdit>
 #include <QTableWidgetItem>
 
 #include <random>
@@ -23,21 +23,29 @@ public:
     ~MainWindow();
 
 protected:
-    void resizeEvent(QResizeEvent*);
+    void closeEvent(QCloseEvent *);
 
 private slots:
     void on_lengthLineEdit_editingFinished();
     void on_ruleLineEdit_editingFinished();
     void on_timeLineEdit_editingFinished();
-    void on_randomPushButton_clicked();
+    void on_playPushButton_clicked();
+    void on_pausePushButton_clicked();
+    void on_stopPushButton_clicked();
+    void on_percentLineEdit_editingFinished();
+    void on_percentHorizontalSlider_valueChanged(int);
 
 private:
+    void initTape();
+
     Ui::MainWindow *ui;
     Automata *automata;
     Frecuencia *frecuencia;
     QTableWidgetItem *protoItem;
     std::default_random_engine generator;
     std::uniform_int_distribution<int> dist;
+    double m_nPercent;
+    QLabel *statusLabel;
 };
 
 #endif // MAINWINDOW_H

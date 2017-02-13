@@ -1,56 +1,67 @@
 #ifndef AUTOMATA_H
 #define AUTOMATA_H
 
-#define MAX_TIME 100000
+#define STOP    1
+#define PAUSE   2
+#define PLAY    3
 
-#include <QBrush>
-#include <QPainter>
-#include <QTimer>
-#include <QWidget>
+#include <QOpenGLWidget>
+#include <QThread>
+#include <QVector>
 
-class Automata : public QWidget{
-Q_OBJECT
+#include "worker.h"
+
+class Automata : public QOpenGLWidget{
+    Q_OBJECT
 
 public:
-    Automata(QWidget *parent = 0);
-   ~Automata();
+    explicit Automata(QWidget *parent = 0);
+    ~Automata();
 
-    int getSize(){ return m_nSize; }
-    short getRule(){ return m_nRule; }
-    long long int getTime(){ return m_llnTime; }
+    uint getSize(){ return m_nSize; }
+    ushort getRule(){ return m_nRule; }
+    ulong getTime(){ return m_nTime; }
 
-    void setSize(int);
-    void setRule(short);
-    void setTime(long long int);
+    void setSize(uint);
+    void setRule(ushort r){ m_nRule = r; }
+    void setTime(ulong t){ m_nTime = t; }
     void setTape(bool*);
 
-signals:
-    void newStep(int);
-
-public slots:
-    void reset();
     void play();
     void pause();
+    void reset();
+
+public slots:
+    void Idle();
+    void addState(bool *);
+
+signals:
+    void newStep(uint);
+    void evolve(bool *, uint);
+    void endTime();
 
 protected:
-    void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
+    void initializeGL();
+    void resizeGL(int, int);
+    void paintGL();
 
-private slots:
-    void step();
+    void mouseMoveEvent(QMouseEvent *);
+    void mousePressEvent(QMouseEvent *);
+    void mouseReleaseEvent(QMouseEvent *);
 
 private:
-    bool rule(bool, bool, bool);
-
-    int m_nSize;
-    short m_nRule;
-    long long int m_llnTime;
-    bool m_bAutomata[MAX_TIME][762];
-    short m_nIdx;
-    bool m_bRunning;
-    QBrush m_whiteBrush;
-    QBrush m_blackBrush;
-    QPainter *m_qPainter;
-    QTimer *m_qTimer;
+    uint m_nSize;
+    ushort m_nRule;
+    ulong m_nTime;
+    ushort m_nState;
+    bool m_bFirstDisplay;
+    bool m_bClick;
+    QPointF m_pOldM;
+    QPointF m_pMouse;
+    QPointF m_pMove;
+    QVector<bool*> m_vTape;
+    Worker *m_Work;
+    QThread *m_Thread;
 };
 
 #endif // AUTOMATA_H

@@ -1,57 +1,68 @@
 #include "frecuencia.h"
 
-#include <QPainter>
+#include <QDebug>
+#include <QTimer>
+#include <GL/glu.h>
 
-#include <iostream>
-using namespace std;
+Frecuencia::Frecuencia(QWidget *parent) : QOpenGLWidget(parent){
+    setWindowFlags(Qt::Window);
+    setWindowTitle(tr("Diagrama de Frecuencia"));
+    setMinimumWidth(400);
+    setMinimumHeight(400);
+    resize(500, 500);
+    move(550, 400);
 
-Frecuencia::Frecuencia(QWidget *parent) : QWidget(parent){
-    setBackgroundRole(QPalette::Base);
-    setAutoFillBackground(true);
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(Idle()));
+    timer->start(20);
 }
 
-int Frecuencia::getFrequency(long long int i){
-    if( i < 0 || i >= m_vFreq.size() )
-        return -1;
-    return m_vFreq[i];
-}
-
-void Frecuencia::setTime(long long int t){
-    m_llnTime = t;
-
-    if( m_llnTime < m_vFreq.size() )
-        m_vFreq.resize(m_llnTime);
-}
-
-void Frecuencia::setMaxOnes(int m){
-    m_nMaxOnes = m;
-    reset();
-}
-
-void Frecuencia::setFrequency(long long int i, int v){
-    if( i < 0 || i >= m_vFreq.size() )
-        return;
-    m_vFreq[i] = v;
+Frecuencia::~Frecuencia(){
+    qInfo() << "Frecuencia Destructor begin";
+    while( !children().isEmpty() )
+        delete children()[0];
+    qInfo() << "Frecuencia Destructor end";
 }
 
 void Frecuencia::reset(){
     m_vFreq.clear();
 }
 
-void Frecuencia::addFrequency(int v){
+void Frecuencia::Idle(){
+    update();
+}
+
+void Frecuencia::addFrequency(uint v){
     m_vFreq.append(v);
 }
 
-void Frecuencia::paintEvent(QPaintEvent *){
-    double tam = (height() - 10) / m_nMaxOnes;
+void Frecuencia::initializeGL(){
+    glEnable(GL_COLOR_MATERIAL);
+    glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    gluLookAt(0, 0, 50, 0, 0, 0, 0, 1, 0);
+}
 
-    QPainter painter(this);
+void Frecuencia::resizeGL(int width, int height){
+    GLdouble w = width, h = height;
+    GLdouble right = m_nTime*5.0/4.0, bot = -m_nMaxOnes*5.0/4.0;
 
-    painter.setPen(QPen(Qt::black));
-    painter.drawLine(10, 0, 10, height());
-    painter.drawLine(0, height()-10, width(), height()-10);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(0, right, bot, 0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 
-    painter.setPen(QPen(Qt::red));
-    for(int i=0;i<m_vFreq.size();i++)
-        painter.drawPoint(10 + i*tam, (height() - 10) - m_vFreq[i]*tam);
+    gluLookAt(right/2, bot/2, 10, right/2, bot/2, 0, 0, 1, 0);
+}
+
+void Frecuencia::paintGL(){
+    glClear(GL_COLOR_BUFFER_BIT);
+    glLoadIdentity();
+
+    glBegin(GL_LINE_STRIP);
+        glVertex2i(1, 1);
+        glVertex2i(3, 2);
+        glVertex2i(5, 5);
+    glEnd();
 }

@@ -22,6 +22,8 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
+#include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QWidget>
 
@@ -30,7 +32,9 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-    QAction *action_Open_file;
+    QAction *actionAbrir_Automata;
+    QAction *actionGuardar_Automata;
+    QAction *actionSalir;
     QWidget *centralWidget;
     QPushButton *playPushButton;
     QPushButton *pausePushButton;
@@ -44,31 +48,33 @@ public:
     QLabel *timeLabel;
     QLineEdit *timeLineEdit;
     QGroupBox *initTapeGroupBox;
-    QPushButton *randomPushButton;
     QLabel *percentLabel;
     QLineEdit *percentLineEdit;
     QTableWidget *tapeTableWidget;
-    QGroupBox *evolutionGroupBox;
-    QGroupBox *frequencyGroupBox;
+    QSlider *percentHorizontalSlider;
     QMenuBar *menuBar;
-    QMenu *menu_File;
+    QMenu *menu_Archivo;
+    QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(800, 600);
-        MainWindow->setMinimumSize(QSize(800, 600));
+        MainWindow->resize(680, 330);
         QFont font;
         font.setPointSize(12);
         MainWindow->setFont(font);
-        action_Open_file = new QAction(MainWindow);
-        action_Open_file->setObjectName(QStringLiteral("action_Open_file"));
+        actionAbrir_Automata = new QAction(MainWindow);
+        actionAbrir_Automata->setObjectName(QStringLiteral("actionAbrir_Automata"));
+        actionGuardar_Automata = new QAction(MainWindow);
+        actionGuardar_Automata->setObjectName(QStringLiteral("actionGuardar_Automata"));
+        actionSalir = new QAction(MainWindow);
+        actionSalir->setObjectName(QStringLiteral("actionSalir"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         playPushButton = new QPushButton(centralWidget);
         playPushButton->setObjectName(QStringLiteral("playPushButton"));
-        playPushButton->setGeometry(QRect(80, 130, 32, 32));
+        playPushButton->setGeometry(QRect(390, 40, 32, 32));
         playPushButton->setCursor(QCursor(Qt::PointingHandCursor));
         QIcon icon;
         icon.addFile(QStringLiteral(":/images/play.png"), QSize(), QIcon::Normal, QIcon::Off);
@@ -77,7 +83,8 @@ public:
         playPushButton->setFlat(true);
         pausePushButton = new QPushButton(centralWidget);
         pausePushButton->setObjectName(QStringLiteral("pausePushButton"));
-        pausePushButton->setGeometry(QRect(140, 130, 32, 32));
+        pausePushButton->setEnabled(false);
+        pausePushButton->setGeometry(QRect(470, 40, 32, 32));
         pausePushButton->setCursor(QCursor(Qt::PointingHandCursor));
         QIcon icon1;
         icon1.addFile(QStringLiteral(":/images/pause.png"), QSize(), QIcon::Normal, QIcon::Off);
@@ -86,7 +93,8 @@ public:
         pausePushButton->setFlat(true);
         stopPushButton = new QPushButton(centralWidget);
         stopPushButton->setObjectName(QStringLiteral("stopPushButton"));
-        stopPushButton->setGeometry(QRect(200, 130, 32, 32));
+        stopPushButton->setEnabled(false);
+        stopPushButton->setGeometry(QRect(550, 40, 32, 32));
         stopPushButton->setCursor(QCursor(Qt::PointingHandCursor));
         QIcon icon2;
         icon2.addFile(QStringLiteral(":/images/stop.png"), QSize(), QIcon::Normal, QIcon::Off);
@@ -95,7 +103,7 @@ public:
         stopPushButton->setFlat(true);
         layoutWidget = new QWidget(centralWidget);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(21, 40, 262, 83));
+        layoutWidget->setGeometry(QRect(40, 20, 262, 83));
         formLayout = new QFormLayout(layoutWidget);
         formLayout->setSpacing(6);
         formLayout->setContentsMargins(11, 11, 11, 11);
@@ -146,24 +154,22 @@ public:
 
         initTapeGroupBox = new QGroupBox(centralWidget);
         initTapeGroupBox->setObjectName(QStringLiteral("initTapeGroupBox"));
-        initTapeGroupBox->setGeometry(QRect(299, 11, 481, 149));
-        randomPushButton = new QPushButton(initTapeGroupBox);
-        randomPushButton->setObjectName(QStringLiteral("randomPushButton"));
-        randomPushButton->setGeometry(QRect(10, 30, 80, 27));
+        initTapeGroupBox->setGeometry(QRect(20, 120, 641, 149));
         percentLabel = new QLabel(initTapeGroupBox);
         percentLabel->setObjectName(QStringLiteral("percentLabel"));
-        percentLabel->setGeometry(QRect(140, 30, 119, 27));
+        percentLabel->setGeometry(QRect(10, 30, 119, 27));
         percentLineEdit = new QLineEdit(initTapeGroupBox);
         percentLineEdit->setObjectName(QStringLiteral("percentLineEdit"));
-        percentLineEdit->setGeometry(QRect(270, 30, 70, 27));
+        percentLineEdit->setGeometry(QRect(140, 30, 70, 27));
         sizePolicy.setHeightForWidth(percentLineEdit->sizePolicy().hasHeightForWidth());
         percentLineEdit->setSizePolicy(sizePolicy);
         percentLineEdit->setMaximumSize(QSize(70, 27));
+        percentLineEdit->setMaxLength(10);
         tapeTableWidget = new QTableWidget(initTapeGroupBox);
         if (tapeTableWidget->rowCount() < 1)
             tapeTableWidget->setRowCount(1);
         tapeTableWidget->setObjectName(QStringLiteral("tapeTableWidget"));
-        tapeTableWidget->setGeometry(QRect(10, 70, 461, 71));
+        tapeTableWidget->setGeometry(QRect(10, 70, 621, 71));
         tapeTableWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         tapeTableWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
         tapeTableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -171,22 +177,32 @@ public:
         tapeTableWidget->horizontalHeader()->setDefaultSectionSize(45);
         tapeTableWidget->horizontalHeader()->setHighlightSections(false);
         tapeTableWidget->verticalHeader()->setVisible(false);
-        evolutionGroupBox = new QGroupBox(centralWidget);
-        evolutionGroupBox->setObjectName(QStringLiteral("evolutionGroupBox"));
-        evolutionGroupBox->setGeometry(QRect(20, 170, 371, 391));
-        frequencyGroupBox = new QGroupBox(centralWidget);
-        frequencyGroupBox->setObjectName(QStringLiteral("frequencyGroupBox"));
-        frequencyGroupBox->setGeometry(QRect(410, 170, 371, 391));
+        percentHorizontalSlider = new QSlider(initTapeGroupBox);
+        percentHorizontalSlider->setObjectName(QStringLiteral("percentHorizontalSlider"));
+        percentHorizontalSlider->setGeometry(QRect(220, 30, 411, 27));
+        percentHorizontalSlider->setMaximum(1000);
+        percentHorizontalSlider->setSingleStep(10);
+        percentHorizontalSlider->setPageStep(50);
+        percentHorizontalSlider->setValue(500);
+        percentHorizontalSlider->setTracking(false);
+        percentHorizontalSlider->setOrientation(Qt::Horizontal);
+        percentHorizontalSlider->setInvertedControls(true);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 800, 24));
-        menu_File = new QMenu(menuBar);
-        menu_File->setObjectName(QStringLiteral("menu_File"));
+        menuBar->setGeometry(QRect(0, 0, 680, 24));
+        menu_Archivo = new QMenu(menuBar);
+        menu_Archivo->setObjectName(QStringLiteral("menu_Archivo"));
         MainWindow->setMenuBar(menuBar);
+        statusBar = new QStatusBar(MainWindow);
+        statusBar->setObjectName(QStringLiteral("statusBar"));
+        MainWindow->setStatusBar(statusBar);
 
-        menuBar->addAction(menu_File->menuAction());
-        menu_File->addAction(action_Open_file);
+        menuBar->addAction(menu_Archivo->menuAction());
+        menu_Archivo->addAction(actionAbrir_Automata);
+        menu_Archivo->addAction(actionGuardar_Automata);
+        menu_Archivo->addSeparator();
+        menu_Archivo->addAction(actionSalir);
 
         retranslateUi(MainWindow);
 
@@ -196,8 +212,12 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Automata Celular 1D", 0));
-        action_Open_file->setText(QApplication::translate("MainWindow", "Abrir archivo", 0));
-        action_Open_file->setShortcut(QApplication::translate("MainWindow", "Ctrl+O", 0));
+        actionAbrir_Automata->setText(QApplication::translate("MainWindow", "Abrir Automata", 0));
+        actionAbrir_Automata->setShortcut(QApplication::translate("MainWindow", "Ctrl+O", 0));
+        actionGuardar_Automata->setText(QApplication::translate("MainWindow", "Guardar Automata", 0));
+        actionGuardar_Automata->setShortcut(QApplication::translate("MainWindow", "Ctrl+S", 0));
+        actionSalir->setText(QApplication::translate("MainWindow", "Salir", 0));
+        actionSalir->setShortcut(QApplication::translate("MainWindow", "Ctrl+Q", 0));
         playPushButton->setText(QString());
         pausePushButton->setText(QString());
         stopPushButton->setText(QString());
@@ -208,12 +228,9 @@ public:
         timeLabel->setText(QApplication::translate("MainWindow", "Repeticiones", 0));
         timeLineEdit->setText(QApplication::translate("MainWindow", "300", 0));
         initTapeGroupBox->setTitle(QApplication::translate("MainWindow", "Aut\303\263mata Inicial", 0));
-        randomPushButton->setText(QApplication::translate("MainWindow", "Random", 0));
         percentLabel->setText(QApplication::translate("MainWindow", "Porcentaje 1's:", 0));
         percentLineEdit->setText(QApplication::translate("MainWindow", "50", 0));
-        evolutionGroupBox->setTitle(QApplication::translate("MainWindow", "Evoluci\303\263n del Aut\303\263mata", 0));
-        frequencyGroupBox->setTitle(QApplication::translate("MainWindow", "Diagrama de Frecuencia", 0));
-        menu_File->setTitle(QApplication::translate("MainWindow", "&Archivo", 0));
+        menu_Archivo->setTitle(QApplication::translate("MainWindow", "&Archivo", 0));
     } // retranslateUi
 
 };

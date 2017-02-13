@@ -10,16 +10,19 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = AutomataCelular1D
 TEMPLATE = app
+LIBS += -lGLU
 
 
 SOURCES += main.cpp\
         mainwindow.cpp \
     automata.cpp \
-    frecuencia.cpp
+    frecuencia.cpp \
+    worker.cpp
 
 HEADERS  += mainwindow.h \
     automata.h \
-    frecuencia.h
+    frecuencia.h \
+    worker.h
 
 FORMS    += mainwindow.ui
 

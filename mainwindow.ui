@@ -6,15 +6,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>680</width>
+    <height>330</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>800</width>
-    <height>600</height>
-   </size>
   </property>
   <property name="font">
    <font>
@@ -28,8 +22,8 @@
    <widget class="QPushButton" name="playPushButton">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>130</y>
+      <x>390</x>
+      <y>40</y>
       <width>32</width>
       <height>32</height>
      </rect>
@@ -55,10 +49,13 @@
     </property>
    </widget>
    <widget class="QPushButton" name="pausePushButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>130</y>
+      <x>470</x>
+      <y>40</y>
       <width>32</width>
       <height>32</height>
      </rect>
@@ -84,10 +81,13 @@
     </property>
    </widget>
    <widget class="QPushButton" name="stopPushButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>130</y>
+      <x>550</x>
+      <y>40</y>
       <width>32</width>
       <height>32</height>
      </rect>
@@ -115,8 +115,8 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>21</x>
-      <y>40</y>
+      <x>40</x>
+      <y>20</y>
       <width>262</width>
       <height>83</height>
      </rect>
@@ -208,32 +208,19 @@
    <widget class="QGroupBox" name="initTapeGroupBox">
     <property name="geometry">
      <rect>
-      <x>299</x>
-      <y>11</y>
-      <width>481</width>
+      <x>20</x>
+      <y>120</y>
+      <width>641</width>
       <height>149</height>
      </rect>
     </property>
     <property name="title">
      <string>Autómata Inicial</string>
     </property>
-    <widget class="QPushButton" name="randomPushButton">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>30</y>
-       <width>80</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Random</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="percentLabel">
      <property name="geometry">
       <rect>
-       <x>140</x>
+       <x>10</x>
        <y>30</y>
        <width>119</width>
        <height>27</height>
@@ -246,7 +233,7 @@
     <widget class="QLineEdit" name="percentLineEdit">
      <property name="geometry">
       <rect>
-       <x>270</x>
+       <x>140</x>
        <y>30</y>
        <width>70</width>
        <height>27</height>
@@ -267,13 +254,16 @@
      <property name="text">
       <string>50</string>
      </property>
+     <property name="maxLength">
+      <number>10</number>
+     </property>
     </widget>
     <widget class="QTableWidget" name="tapeTableWidget">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>70</y>
-       <width>461</width>
+       <width>621</width>
        <height>71</height>
       </rect>
      </property>
@@ -300,32 +290,37 @@
      </attribute>
      <row/>
     </widget>
-   </widget>
-   <widget class="QGroupBox" name="evolutionGroupBox">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>170</y>
-      <width>371</width>
-      <height>391</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Evolución del Autómata</string>
-    </property>
-   </widget>
-   <widget class="QGroupBox" name="frequencyGroupBox">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>170</y>
-      <width>371</width>
-      <height>391</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Diagrama de Frecuencia</string>
-    </property>
+    <widget class="QSlider" name="percentHorizontalSlider">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>30</y>
+       <width>411</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1000</number>
+     </property>
+     <property name="singleStep">
+      <number>10</number>
+     </property>
+     <property name="pageStep">
+      <number>50</number>
+     </property>
+     <property name="value">
+      <number>500</number>
+     </property>
+     <property name="tracking">
+      <bool>false</bool>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="invertedControls">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -333,24 +328,44 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>680</width>
      <height>24</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu_File">
+   <widget class="QMenu" name="menu_Archivo">
     <property name="title">
      <string>&amp;Archivo</string>
     </property>
-    <addaction name="action_Open_file"/>
+    <addaction name="actionAbrir_Automata"/>
+    <addaction name="actionGuardar_Automata"/>
+    <addaction name="separator"/>
+    <addaction name="actionSalir"/>
    </widget>
-   <addaction name="menu_File"/>
+   <addaction name="menu_Archivo"/>
   </widget>
-  <action name="action_Open_file">
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionAbrir_Automata">
    <property name="text">
-    <string>Abrir archivo</string>
+    <string>Abrir Automata</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionGuardar_Automata">
+   <property name="text">
+    <string>Guardar Automata</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionSalir">
+   <property name="text">
+    <string>Salir</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
    </property>
   </action>
  </widget>
