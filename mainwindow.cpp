@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     on_timeLineEdit_editingFinished();
 
     connect(automata, SIGNAL(newStep(uint)), frecuencia, SLOT(addFrequency(uint)));
+    connect(automata, SIGNAL(endTime()), this, SLOT(on_pausePushButton_clicked()));
 
     setFixedSize(geometry().width(), geometry().height());
     move(197, 25);
@@ -113,10 +114,17 @@ void MainWindow::on_timeLineEdit_editingFinished(){
 }
 
 void MainWindow::on_playPushButton_clicked(){
-    bool t[automata->getSize()];
-    for(uint i=0;i<automata->getSize();i++)
-        t[i] = (ui->tapeTableWidget->item(0, i)->text() == "1");
-    automata->setTape(t);
+    if( automata->getState() == STOP ){
+        bool t[automata->getSize()];
+        uint f = 0;
+        for(uint i=0;i<automata->getSize();i++){
+            t[i] = (ui->tapeTableWidget->item(0, i)->text() == "1");
+            if( t[i] ) f++;
+        }
+        automata->setTape(t);
+        frecuencia->reset();
+        frecuencia->addFrequency(f);
+    }
 
     automata->play();
     automata->show();

@@ -21,6 +21,7 @@ public:
     uint getSize(){ return m_nSize; }
     ushort getRule(){ return m_nRule; }
     ulong getTime(){ return m_nTime; }
+    ushort getState(){ return m_nState; }
 
     void setSize(uint);
     void setRule(ushort r){ m_nRule = r; }
@@ -48,6 +49,7 @@ protected:
     void mouseMoveEvent(QMouseEvent *);
     void mousePressEvent(QMouseEvent *);
     void mouseReleaseEvent(QMouseEvent *);
+    void wheelEvent(QWheelEvent *);
 
 private:
     uint m_nSize;
@@ -56,6 +58,9 @@ private:
     ushort m_nState;
     bool m_bFirstDisplay;
     bool m_bClick;
+    double m_nScale;
+    double m_nZoom;
+    int m_nScroll;
     QPointF m_pOldM;
     QPointF m_pMouse;
     QPointF m_pMove;

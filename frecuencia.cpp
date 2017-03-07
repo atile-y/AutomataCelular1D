@@ -40,29 +40,48 @@ void Frecuencia::initializeGL(){
     glEnable(GL_COLOR_MATERIAL);
     glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    gluLookAt(0, 0, 50, 0, 0, 0, 0, 1, 0);
 }
 
 void Frecuencia::resizeGL(int width, int height){
-    GLdouble w = width, h = height;
-    GLdouble right = m_nTime*5.0/4.0, bot = -m_nMaxOnes*5.0/4.0;
+    GLdouble bot = -(m_nMaxOnes/8.0), top = m_nMaxOnes*9.0/8.0;
+    GLdouble left = bot, right = top;
+    GLdouble midX = (right-left)/2.0, midY = (top-bot)/2.0;
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(0, right, bot, 0);
+    gluOrtho2D(left, right, bot, top);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    gluLookAt(right/2, bot/2, 10, right/2, bot/2, 0, 0, 1, 0);
+    gluLookAt(midX, midY, 10, midX, midY, 0, 0, 1, 0);
 }
 
 void Frecuencia::paintGL(){
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
+    glColor3f(0.0f, 0.0f, 0.0f);
 
-    glBegin(GL_LINE_STRIP);
-        glVertex2i(1, 1);
-        glVertex2i(3, 2);
-        glVertex2i(5, 5);
+    glBegin(GL_LINES);
+        glVertex2i(0, 0);
+        glVertex2i(0, m_nMaxOnes);
+        glVertex2i(0, 0);
+        glVertex2i(m_nTime == 0 ? m_vFreq.size() : m_nTime, 0);
     glEnd();
+
+    glColor3f(0.3, 0.3, 0.7);
+    glPointSize(3.0);
+    if( !m_vFreq.isEmpty() ){
+        glBegin(GL_POINTS);
+            glVertex2i(0, m_vFreq.at(0));
+        glEnd();
+    }
+    for(int i=1;i<m_vFreq.size();i++){
+        glBegin(GL_POINTS);
+            glVertex2i(i, m_vFreq.at(i));
+        glEnd();
+        glBegin(GL_LINES);
+            glVertex2i(i-1, m_vFreq.at(i-1));
+            glVertex2i(i, m_vFreq.at(i));
+        glEnd();
+    }
 }

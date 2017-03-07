@@ -40,7 +40,7 @@ Automata::~Automata(){
 
 void Automata::setSize(uint s){
     m_nSize = s;
-
+    m_nScale = ((double)m_nSize) / this->width();
 }
 
 void Automata::setTape(bool *arr){
@@ -118,8 +118,10 @@ void Automata::addState(bool *s){
 
     m_vTape.append(t);
 
-    if( (uint)m_vTape.size() >= m_nTime )
+    if( (uint)m_vTape.size() >= m_nTime && m_nTime > 0 ){
         m_nState = PAUSE;
+        emit endTime();
+    }
 
     if( m_nState == PLAY )
         emit evolve(t, m_nSize);
@@ -130,12 +132,13 @@ void Automata::initializeGL(){
     glEnable(GL_COLOR_MATERIAL);
     glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    gluLookAt(0, 0, 50, 0, 0, 0, 0, 1, 0);
 }
 
 void Automata::resizeGL(int width, int height){
     GLdouble w = width, h = height;
     GLdouble right = m_nSize, bot = -h*m_nSize/w;
+
+    m_nScale = ((double)m_nSize) / w;
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -151,6 +154,9 @@ void Automata::paintGL(){
         GLdouble w = this->width(), h = this->height();
         GLdouble right = m_nSize, bot = -h*m_nSize/w;
 
+        m_nScale = ((double)m_nSize) / w;
+        m_nZoom = 1.0;
+
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
         gluOrtho2D(0, right, bot, 0);
@@ -159,6 +165,7 @@ void Automata::paintGL(){
 
         gluLookAt(right/2, bot/2, 10, right/2, bot/2, 0, 0, 1, 0);
         m_pMove = QPoint();
+        m_nScroll = 0;
         m_bFirstDisplay = false;
     }
 
@@ -167,6 +174,7 @@ void Automata::paintGL(){
     glColor3f(0.0f, 0.0f, 0.0f);
 
     glTranslatef(-m_pMove.x(), m_pMove.y(), 0.0f);
+    glScaled(m_nZoom, m_nZoom, 0.0);
 
     for(int i=0;i<m_vTape.size();i++){
         for(uint j=0;j<m_nSize;j++){
@@ -186,9 +194,8 @@ void Automata::mouseMoveEvent(QMouseEvent *event){
     if( !m_bClick )
         return;
 
-    m_pMove += (m_pOldM - event->screenPos());
+    m_pMove += (m_pOldM - event->screenPos()) * m_nScale;
     m_pOldM = event->screenPos();
-    qInfo() << "Move: " << m_pMove;
 }
 
 void Automata::mousePressEvent(QMouseEvent *event){
@@ -204,4 +211,22 @@ void Automata::mouseReleaseEvent(QMouseEvent *event){
         return;
 
     m_bClick = false;
+}
+
+void Automata::wheelEvent(QWheelEvent *event){
+    int base = 120;
+    int scroll = event->pixelDelta().y();
+
+    if( scroll == 0 )
+        scroll = event->angleDelta().y();
+
+    m_nScroll += scroll;
+
+    scroll = m_nScroll / base;
+    m_nScroll = m_nScroll % base;
+
+    if( scroll > 0 )
+        m_nZoom *= (2 * scroll);
+    else if( scroll < 0 )
+        m_nZoom /= (2 * -scroll);
 }
