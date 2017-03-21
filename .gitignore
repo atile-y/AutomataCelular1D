@@ -12,3 +12,6 @@ AutomataCelular1D.pro.user
 *.swp
 *.*~
 
+# Image files
+buil*/*.png
+

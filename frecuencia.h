@@ -30,6 +30,7 @@ private:
     ulong m_nTime;
     uint m_nMaxOnes;
     QVector<uint> m_vFreq;
+    bool m_bFirstDisplay;
 };
 
 #endif // FRECUENCIA_H

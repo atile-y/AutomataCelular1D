@@ -1,25 +1,17 @@
 #include "worker.h"
 
 #include <QThread>
-#include <QTime>
 
-Worker::Worker(ushort r, ulong d){
+Worker::Worker(ushort r){
     m_nRule = r;
-    m_nDelay = d;
 }
 
 void Worker::evolve(bool *t, uint s){
-    QTime ini;
-    ini.start();
-
     bool r[s];
 
     for(uint i=0;i<s;i++)
         r[i] = rule(t[(i+s-1)%s], t[i], t[(i+1)%s]);
 
-    int lap = ini.elapsed();
-    if( m_nDelay - lap > 0 )
-        QThread::msleep(m_nDelay - lap);
     emit add(r);
 }
 

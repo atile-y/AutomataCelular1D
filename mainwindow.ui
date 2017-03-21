@@ -147,7 +147,7 @@
         </size>
        </property>
        <property name="text">
-        <string>300</string>
+        <string>601</string>
        </property>
       </widget>
      </item>
@@ -199,7 +199,7 @@
         </size>
        </property>
        <property name="text">
-        <string>300</string>
+        <string>1500</string>
        </property>
       </widget>
      </item>
@@ -341,7 +341,21 @@
     <addaction name="separator"/>
     <addaction name="actionSalir"/>
    </widget>
+   <widget class="QMenu" name="menuEditar">
+    <property name="title">
+     <string>Editar</string>
+    </property>
+    <widget class="QMenu" name="menuExplorar_reglas">
+     <property name="title">
+      <string>Explorar reglas</string>
+     </property>
+     <addaction name="actionTodas"/>
+     <addaction name="actionEquivalentes"/>
+    </widget>
+    <addaction name="menuExplorar_reglas"/>
+   </widget>
    <addaction name="menu_Archivo"/>
+   <addaction name="menuEditar"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAbrir_Automata">
@@ -366,6 +380,16 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionTodas">
+   <property name="text">
+    <string>Todas</string>
+   </property>
+  </action>
+  <action name="actionEquivalentes">
+   <property name="text">
+    <string>Equivalentes</string>
    </property>
   </action>
  </widget>

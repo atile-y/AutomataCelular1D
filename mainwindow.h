@@ -3,6 +3,7 @@
 
 #include "automata.h"
 #include "frecuencia.h"
+#include "universescanner.h"
 
 #include <QLabel>
 #include <QMainWindow>
@@ -22,10 +23,17 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+signals:
+    void startScan(int);
+
 protected:
     void closeEvent(QCloseEvent *);
 
 private slots:
+    void on_actionAbrir_Automata_triggered();
+    void on_actionGuardar_Automata_triggered();
+    void on_actionTodas_triggered();
+    void on_actionEquivalentes_triggered();
     void on_lengthLineEdit_editingFinished();
     void on_ruleLineEdit_editingFinished();
     void on_timeLineEdit_editingFinished();
@@ -34,6 +42,9 @@ private slots:
     void on_stopPushButton_clicked();
     void on_percentLineEdit_editingFinished();
     void on_percentHorizontalSlider_valueChanged(int);
+    void takeScreenshot(QString = "test");
+    void statusRunningRule(int);
+    void finishScan();
 
 private:
     void initTape();
@@ -46,6 +57,8 @@ private:
     std::uniform_int_distribution<int> dist;
     double m_nPercent;
     QLabel *statusLabel;
+    UniverseScanner *m_UniScan;
+    QThread *m_Thread;
 };
 
 #endif // MAINWINDOW_H

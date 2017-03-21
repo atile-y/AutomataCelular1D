@@ -24,7 +24,6 @@ Automata::Automata(QWidget *parent) : QOpenGLWidget(parent){
 }
 
 Automata::~Automata(){
-    qInfo() << "Automata Destructor begin";
     while( !children().isEmpty() )
         delete children()[0];
 
@@ -35,7 +34,6 @@ Automata::~Automata(){
         if( m_Work != NULL )
             delete m_Work;
     }
-    qInfo() << "Automata Destructor end";
 }
 
 void Automata::setSize(uint s){
@@ -61,7 +59,7 @@ void Automata::play(){
         m_bFirstDisplay = true;
 
         m_Thread = new QThread;
-        m_Work = new Worker(m_nRule, 50);
+        m_Work = new Worker(m_nRule);
         m_Work->moveToThread(m_Thread);
 
         connect(this, SIGNAL(evolve(bool*,uint)), m_Work, SLOT(evolve(bool*,uint)));

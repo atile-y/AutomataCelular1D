@@ -35,6 +35,8 @@ public:
     QAction *actionAbrir_Automata;
     QAction *actionGuardar_Automata;
     QAction *actionSalir;
+    QAction *actionTodas;
+    QAction *actionEquivalentes;
     QWidget *centralWidget;
     QPushButton *playPushButton;
     QPushButton *pausePushButton;
@@ -54,6 +56,8 @@ public:
     QSlider *percentHorizontalSlider;
     QMenuBar *menuBar;
     QMenu *menu_Archivo;
+    QMenu *menuEditar;
+    QMenu *menuExplorar_reglas;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -70,6 +74,10 @@ public:
         actionGuardar_Automata->setObjectName(QStringLiteral("actionGuardar_Automata"));
         actionSalir = new QAction(MainWindow);
         actionSalir->setObjectName(QStringLiteral("actionSalir"));
+        actionTodas = new QAction(MainWindow);
+        actionTodas->setObjectName(QStringLiteral("actionTodas"));
+        actionEquivalentes = new QAction(MainWindow);
+        actionEquivalentes->setObjectName(QStringLiteral("actionEquivalentes"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         playPushButton = new QPushButton(centralWidget);
@@ -193,16 +201,24 @@ public:
         menuBar->setGeometry(QRect(0, 0, 680, 24));
         menu_Archivo = new QMenu(menuBar);
         menu_Archivo->setObjectName(QStringLiteral("menu_Archivo"));
+        menuEditar = new QMenu(menuBar);
+        menuEditar->setObjectName(QStringLiteral("menuEditar"));
+        menuExplorar_reglas = new QMenu(menuEditar);
+        menuExplorar_reglas->setObjectName(QStringLiteral("menuExplorar_reglas"));
         MainWindow->setMenuBar(menuBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
 
         menuBar->addAction(menu_Archivo->menuAction());
+        menuBar->addAction(menuEditar->menuAction());
         menu_Archivo->addAction(actionAbrir_Automata);
         menu_Archivo->addAction(actionGuardar_Automata);
         menu_Archivo->addSeparator();
         menu_Archivo->addAction(actionSalir);
+        menuEditar->addAction(menuExplorar_reglas->menuAction());
+        menuExplorar_reglas->addAction(actionTodas);
+        menuExplorar_reglas->addAction(actionEquivalentes);
 
         retranslateUi(MainWindow);
 
@@ -218,19 +234,23 @@ public:
         actionGuardar_Automata->setShortcut(QApplication::translate("MainWindow", "Ctrl+S", 0));
         actionSalir->setText(QApplication::translate("MainWindow", "Salir", 0));
         actionSalir->setShortcut(QApplication::translate("MainWindow", "Ctrl+Q", 0));
+        actionTodas->setText(QApplication::translate("MainWindow", "Todas", 0));
+        actionEquivalentes->setText(QApplication::translate("MainWindow", "Equivalentes", 0));
         playPushButton->setText(QString());
         pausePushButton->setText(QString());
         stopPushButton->setText(QString());
         lengthLabel->setText(QApplication::translate("MainWindow", "Longitud del Aut\303\263mata", 0));
-        lengthLineEdit->setText(QApplication::translate("MainWindow", "300", 0));
+        lengthLineEdit->setText(QApplication::translate("MainWindow", "601", 0));
         ruleLabel->setText(QApplication::translate("MainWindow", "Regla", 0));
         ruleLineEdit->setText(QApplication::translate("MainWindow", "90", 0));
         timeLabel->setText(QApplication::translate("MainWindow", "Repeticiones", 0));
-        timeLineEdit->setText(QApplication::translate("MainWindow", "300", 0));
+        timeLineEdit->setText(QApplication::translate("MainWindow", "1500", 0));
         initTapeGroupBox->setTitle(QApplication::translate("MainWindow", "Aut\303\263mata Inicial", 0));
         percentLabel->setText(QApplication::translate("MainWindow", "Porcentaje 1's:", 0));
         percentLineEdit->setText(QApplication::translate("MainWindow", "50", 0));
         menu_Archivo->setTitle(QApplication::translate("MainWindow", "&Archivo", 0));
+        menuEditar->setTitle(QApplication::translate("MainWindow", "Editar", 0));
+        menuExplorar_reglas->setTitle(QApplication::translate("MainWindow", "Explorar reglas", 0));
     } // retranslateUi
 
 };

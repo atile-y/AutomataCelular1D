@@ -3,6 +3,7 @@
 
 #include <QCloseEvent>
 #include <QDebug>
+#include <QFileDialog>
 
 #include <chrono>
 
@@ -32,6 +33,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(automata, SIGNAL(newStep(uint)), frecuencia, SLOT(addFrequency(uint)));
     connect(automata, SIGNAL(endTime()), this, SLOT(on_pausePushButton_clicked()));
+    connect(automata, SIGNAL(endTime()), this, SLOT(takeScreenshot()));
+
+    connect(ui->actionSalir, SIGNAL(triggered(bool)), this, SLOT(close()));
 
     setFixedSize(geometry().width(), geometry().height());
     move(197, 25);
@@ -42,17 +46,83 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 MainWindow::~MainWindow(){
-    qInfo() << "MainWindow Descructor begin";
     delete ui;
     delete automata;
     delete frecuencia;
-    qInfo() << "MainWindow Descructor end";
 }
 
 void MainWindow::closeEvent(QCloseEvent *event){
     automata->close();
     frecuencia->close();
     event->accept();
+}
+
+void MainWindow::on_actionAbrir_Automata_triggered(){
+    qInfo() << "wut";
+}
+
+void MainWindow::on_actionGuardar_Automata_triggered(){
+    qInfo() << "wut";
+}
+
+void MainWindow::on_actionTodas_triggered(){
+    if( automata->getState() != STOP )
+        return;
+
+    QString folder = QFileDialog::getExistingDirectory(this,
+            tr("Selecciona la carpeta donde se guardarán las imágenes ..."),
+            "/home/atile/Documentos/Materias/Sistemas Complejos");
+    if( folder == "" )
+        return;
+
+    m_Thread = new QThread;
+    m_UniScan = new UniverseScanner(automata->getSize(), folder);
+    m_UniScan->moveToThread(m_Thread);
+
+    connect(this, SIGNAL(startScan(int)), m_UniScan, SLOT(scan(int)));
+    connect(m_UniScan, SIGNAL(startRule(int)), this, SLOT(statusRunningRule(int)));
+    connect(m_UniScan, SIGNAL(endScanning()), this, SLOT(finishScan()));
+
+    m_Thread->start();
+
+    // Bloqueando los elementos para que no se editen
+    ui->playPushButton->setEnabled(false);
+    ui->lengthLineEdit->setEnabled(false);
+    ui->ruleLineEdit->setEnabled(false);
+    ui->timeLineEdit->setEnabled(false);
+    ui->initTapeGroupBox->setEnabled(false);
+
+    emit startScan(TODAS);
+}
+
+void MainWindow::on_actionEquivalentes_triggered(){
+    if( automata->getState() != STOP )
+        return;
+
+    QString folder = QFileDialog::getExistingDirectory(this,
+            tr("Selecciona la carpeta donde se guardarán las imágenes ..."),
+            "/home/atile/Documentos/Materias/Sistemas Complejos");
+    if( folder == "" )
+        return;
+
+    m_Thread = new QThread;
+    m_UniScan = new UniverseScanner(automata->getSize(), folder);
+    m_UniScan->moveToThread(m_Thread);
+
+    connect(this, SIGNAL(startScan(int)), m_UniScan, SLOT(scan(int)));
+    connect(m_UniScan, SIGNAL(startRule(int)), this, SLOT(statusRunningRule(int)));
+    connect(m_UniScan, SIGNAL(endScanning()), this, SLOT(finishScan()));
+
+    m_Thread->start();
+
+    // Bloqueando los elementos para que no se editen
+    ui->playPushButton->setEnabled(false);
+    ui->lengthLineEdit->setEnabled(false);
+    ui->ruleLineEdit->setEnabled(false);
+    ui->timeLineEdit->setEnabled(false);
+    ui->initTapeGroupBox->setEnabled(false);
+
+    emit startScan(EQUIVALENTES);
 }
 
 void MainWindow::on_lengthLineEdit_editingFinished(){
@@ -226,6 +296,28 @@ void MainWindow::initTape(){
         while( ui->tapeTableWidget->item(0, j)->text() == "1" );
         ui->tapeTableWidget->item(0, j)->setText(tr("1"));
     }
+}
 
-    frecuencia->addFrequency(m);
+void MainWindow::takeScreenshot(QString filename){
+    if( automata->isVisible() )
+        automata->grab().save(filename + ".png");
+
+
+    if( frecuencia->isVisible() )
+        frecuencia->grab().save(filename + "_freq.png");
+}
+
+void MainWindow::statusRunningRule(int r){
+    statusLabel->setText(QString("Corriendo Regla %1.").arg(r));
+}
+
+void MainWindow::finishScan(){
+    // Desbloqueando los elementos para que se puedan editar
+    ui->playPushButton->setEnabled(true);
+    ui->lengthLineEdit->setEnabled(true);
+    ui->ruleLineEdit->setEnabled(true);
+    ui->timeLineEdit->setEnabled(true);
+    ui->initTapeGroupBox->setEnabled(true);
+
+    statusLabel->setText(tr("Listo."));
 }

@@ -17,12 +17,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     automata.cpp \
     frecuencia.cpp \
-    worker.cpp
+    worker.cpp \
+    universescanner.cpp
 
 HEADERS  += mainwindow.h \
     automata.h \
     frecuencia.h \
-    worker.h
+    worker.h \
+    universescanner.h
 
 FORMS    += mainwindow.ui
 
