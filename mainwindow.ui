@@ -117,7 +117,7 @@
      <rect>
       <x>40</x>
       <y>20</y>
-      <width>262</width>
+      <width>231</width>
       <height>83</height>
      </rect>
     </property>
@@ -128,7 +128,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="lengthLabel">
        <property name="text">
-        <string>Longitud del Autómata</string>
+        <string>Longitud del Anillo</string>
        </property>
       </widget>
      </item>
@@ -343,7 +343,7 @@
    </widget>
    <widget class="QMenu" name="menuEditar">
     <property name="title">
-     <string>Editar</string>
+     <string>&amp;Editar</string>
     </property>
     <widget class="QMenu" name="menuExplorar_reglas">
      <property name="title">
@@ -386,10 +386,16 @@
    <property name="text">
     <string>Todas</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
   </action>
   <action name="actionEquivalentes">
    <property name="text">
     <string>Equivalentes</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
    </property>
   </action>
  </widget>

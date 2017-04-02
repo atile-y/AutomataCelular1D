@@ -111,7 +111,7 @@ public:
         stopPushButton->setFlat(true);
         layoutWidget = new QWidget(centralWidget);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(40, 20, 262, 83));
+        layoutWidget->setGeometry(QRect(40, 20, 231, 83));
         formLayout = new QFormLayout(layoutWidget);
         formLayout->setSpacing(6);
         formLayout->setContentsMargins(11, 11, 11, 11);
@@ -235,11 +235,13 @@ public:
         actionSalir->setText(QApplication::translate("MainWindow", "Salir", 0));
         actionSalir->setShortcut(QApplication::translate("MainWindow", "Ctrl+Q", 0));
         actionTodas->setText(QApplication::translate("MainWindow", "Todas", 0));
+        actionTodas->setShortcut(QApplication::translate("MainWindow", "Ctrl+A", 0));
         actionEquivalentes->setText(QApplication::translate("MainWindow", "Equivalentes", 0));
+        actionEquivalentes->setShortcut(QApplication::translate("MainWindow", "Ctrl+E", 0));
         playPushButton->setText(QString());
         pausePushButton->setText(QString());
         stopPushButton->setText(QString());
-        lengthLabel->setText(QApplication::translate("MainWindow", "Longitud del Aut\303\263mata", 0));
+        lengthLabel->setText(QApplication::translate("MainWindow", "Longitud del Anillo", 0));
         lengthLineEdit->setText(QApplication::translate("MainWindow", "601", 0));
         ruleLabel->setText(QApplication::translate("MainWindow", "Regla", 0));
         ruleLineEdit->setText(QApplication::translate("MainWindow", "90", 0));
@@ -249,7 +251,7 @@ public:
         percentLabel->setText(QApplication::translate("MainWindow", "Porcentaje 1's:", 0));
         percentLineEdit->setText(QApplication::translate("MainWindow", "50", 0));
         menu_Archivo->setTitle(QApplication::translate("MainWindow", "&Archivo", 0));
-        menuEditar->setTitle(QApplication::translate("MainWindow", "Editar", 0));
+        menuEditar->setTitle(QApplication::translate("MainWindow", "&Editar", 0));
         menuExplorar_reglas->setTitle(QApplication::translate("MainWindow", "Explorar reglas", 0));
     } // retranslateUi
 

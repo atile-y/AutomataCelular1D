@@ -19,8 +19,8 @@ UniverseScanner::UniverseScanner(uint size, QString path){
     m_Tape[0][m_nSize/2] = true;
     m_Freq[0] = 1;
     m_Desc[0] = "central";
-    m_Desc[1] = "50%";
-    m_Desc[2] = "10%";
+    m_Desc[1] = "50p";
+    m_Desc[2] = "10p";
 
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine generator(seed);
@@ -119,7 +119,7 @@ void UniverseScanner::scan(int m){
     autoImg = new QImage(m_nSize, m_nSize, QImage::Format_Mono);
     autoImg->setColorTable(QVector<QRgb>() << qRgb(255, 255, 255) << qRgb(0, 0, 0));
 
-    freqImg = new QImage(2*m_nSize+20, 2*m_nSize+20, QImage::Format_RGB32);
+    freqImg = new QImage(2*m_nSize+20, 2*m_nSize+50, QImage::Format_RGB32);
 
     for(int r : rules){
         emit startRule(r);
@@ -128,13 +128,13 @@ void UniverseScanner::scan(int m){
             freqImg->fill(QColor(255, 255, 255));
             freqPaint.begin(freqImg);
             freqPaint.setPen(black);
-            freqPaint.drawLine(10, 10, 10, 2*m_nSize + 10);
-            freqPaint.drawLine(10, 2*m_nSize + 10, 2*m_nSize + 10, 2*m_nSize + 10);
+            freqPaint.drawLine(10, 40, 10, 2*m_nSize + 40);
+            freqPaint.drawLine(10, 2*m_nSize + 40, 2*m_nSize + 10, 2*m_nSize + 40);
             freqPaint.setPen(gray);
             for(uint i=m_nSize/10;i<m_nSize;i+=m_nSize/10){
-                freqPaint.drawLine(2*i + 10, 10, 2*i + 10, 2*m_nSize + 10);
-                freqPaint.drawLine(10, 2*m_nSize + 10 - 2*i,
-                                   2*m_nSize + 10, 2*m_nSize + 10 - 2*i);
+                freqPaint.drawLine(2*i + 10, 40, 2*i + 10, 2*m_nSize + 40);
+                freqPaint.drawLine(10, 2*m_nSize + 40 - 2*i,
+                                   2*m_nSize + 10, 2*m_nSize + 40 - 2*i);
             }
 
             freq.clear();
@@ -180,8 +180,8 @@ void UniverseScanner::scan(int m){
                         f++;
                 }
                 row[col] = m_nSize%8 == 0 ? n : n<<(8-m_nSize%8);
-                freqPaint.drawLine(2*(i-1) + 10, 2*m_nSize + 10 - 2*freq.last(),
-                                   2*i + 10, 2*m_nSize + 10 - 2*f);
+                freqPaint.drawLine(2*(i-1) + 10, 2*m_nSize + 40 - 2*freq.last(),
+                                   2*i + 10, 2*m_nSize + 40 - 2*f);
 
                 freq.append(f);
                 med += f;
@@ -193,15 +193,18 @@ void UniverseScanner::scan(int m){
             var /= m_nSize;
 
             freqPaint.setPen(green);
-            freqPaint.drawLine(10, 2*m_nSize + 10 - 2*med,
-                               2*m_nSize + 10, 2*m_nSize + 10 - 2*med);
+            freqPaint.drawLine(10, 2*m_nSize + 40 - 2*med,
+                               2*m_nSize + 10, 2*m_nSize + 40 - 2*med);
+            freqPaint.drawText(m_nSize - 110, 25, QString("Media: %1").arg(med));
             freqPaint.setPen(red);
             if( var < m_nSize ){
-                freqPaint.drawLine(10, 2*m_nSize + 10 - 2*var,
-                                   2*m_nSize + 10, 2*m_nSize + 10 - 2*var);
+                freqPaint.drawLine(10, 2*m_nSize + 40 - 2*var,
+                                   2*m_nSize + 10, 2*m_nSize + 40 - 2*var);
             }
-            else
-                freqPaint.drawText(m_nSize/2 - 20, 50, QString("Var: %1").arg(var));
+            freqPaint.drawText(m_nSize + 20, 25, QString("Varianza: %1").arg(var));
+
+            freqPaint.setPen(black);
+            freqPaint.drawText(20, 25, QString("Celúlas: %1").arg(m_nSize));
 
             freqPaint.end();
 

@@ -22,6 +22,7 @@ public:
     ushort getRule(){ return m_nRule; }
     ulong getTime(){ return m_nTime; }
     ushort getState(){ return m_nState; }
+    bool *getInitTape();
 
     void setSize(uint);
     void setRule(ushort r){ m_nRule = r; }
@@ -31,6 +32,9 @@ public:
     void play();
     void pause();
     void reset();
+
+    bool saveTape(QString);
+    bool readTape(QString);
 
 public slots:
     void Idle();

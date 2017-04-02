@@ -58,11 +58,56 @@ void MainWindow::closeEvent(QCloseEvent *event){
 }
 
 void MainWindow::on_actionAbrir_Automata_triggered(){
-    qInfo() << "wut";
+    QString file = QFileDialog::getOpenFileName(this,
+            tr("Abrir la Cinta Inicial del Automata"),
+            "/home/atile/Documentos/Materias/Sistemas Complejos",
+            tr("Automata (*.eca)"));
+
+    if( file == "" )
+        return;
+
+    if( !file.endsWith(".eca") )
+        file += ".eca";
+
+    if( !automata->readTape(file) )
+        return;
+
+    ui->lengthLineEdit->setText(QString::number(automata->getSize()));
+    ui->ruleLineEdit->setText(QString::number(automata->getRule()));
+    ui->timeLineEdit->setText(QString::number(automata->getTime()));
+
+    frecuencia->setMaxOnes(automata->getSize());
+    frecuencia->setTime(automata->getTime());
+    frecuencia->reset();
+
+    uint size = automata->getSize();
+    bool *t = automata->getInitTape();
+
+    int oldSize = ui->tapeTableWidget->columnCount();
+    ui->tapeTableWidget->setColumnCount(size);
+    for(uint i=oldSize;i<size;i++)
+        ui->tapeTableWidget->setItem(0, i, protoItem->clone());
+
+    for(uint i=0;i<size;i++)
+        ui->tapeTableWidget->item(0, i)->setText(tr(t[i]?"1":"0"));
 }
 
 void MainWindow::on_actionGuardar_Automata_triggered(){
-    qInfo() << "wut";
+    QString file = QFileDialog::getSaveFileName(this,
+            tr("Guardar Cinta Inicial del Automata"),
+            "/home/atile/Documentos/Materias/Sistemas Complejos",
+            tr("Automata (*.eca)"));
+    if( file == "" )
+        return;
+
+    if( !file.endsWith(".eca") )
+        file += ".eca";
+
+    bool t[automata->getSize()];
+    for(uint i=0;i<automata->getSize();i++)
+        t[i] = (ui->tapeTableWidget->item(0, i)->text() == "1");
+    automata->setTape(t);
+    automata->saveTape(file);
 }
 
 void MainWindow::on_actionTodas_triggered(){
@@ -70,7 +115,7 @@ void MainWindow::on_actionTodas_triggered(){
         return;
 
     QString folder = QFileDialog::getExistingDirectory(this,
-            tr("Selecciona la carpeta donde se guardarán las imágenes ..."),
+            tr("Explorar todas las reglas"),
             "/home/atile/Documentos/Materias/Sistemas Complejos");
     if( folder == "" )
         return;
@@ -86,6 +131,7 @@ void MainWindow::on_actionTodas_triggered(){
     m_Thread->start();
 
     // Bloqueando los elementos para que no se editen
+    ui->menuBar->setEnabled(false);
     ui->playPushButton->setEnabled(false);
     ui->lengthLineEdit->setEnabled(false);
     ui->ruleLineEdit->setEnabled(false);
@@ -100,7 +146,7 @@ void MainWindow::on_actionEquivalentes_triggered(){
         return;
 
     QString folder = QFileDialog::getExistingDirectory(this,
-            tr("Selecciona la carpeta donde se guardarán las imágenes ..."),
+            tr("Explorar las reglas equivalentes"),
             "/home/atile/Documentos/Materias/Sistemas Complejos");
     if( folder == "" )
         return;
@@ -116,6 +162,7 @@ void MainWindow::on_actionEquivalentes_triggered(){
     m_Thread->start();
 
     // Bloqueando los elementos para que no se editen
+    ui->menuBar->setEnabled(false);
     ui->playPushButton->setEnabled(false);
     ui->lengthLineEdit->setEnabled(false);
     ui->ruleLineEdit->setEnabled(false);
@@ -202,6 +249,7 @@ void MainWindow::on_playPushButton_clicked(){
 
     statusLabel->setText(tr("Corriendo"));
 
+    ui->menuBar->setEnabled(false);
     ui->playPushButton->setEnabled(false);
     ui->pausePushButton->setEnabled(true);
     ui->stopPushButton->setEnabled(true);
@@ -234,6 +282,7 @@ void MainWindow::on_stopPushButton_clicked(){
     statusLabel->setText(tr(""));
     ui->statusBar->showMessage(tr("Detenido"), 2000);
 
+    ui->menuBar->setEnabled(true);
     ui->playPushButton->setEnabled(true);
     ui->pausePushButton->setEnabled(false);
     ui->stopPushButton->setEnabled(false);
@@ -308,11 +357,12 @@ void MainWindow::takeScreenshot(QString filename){
 }
 
 void MainWindow::statusRunningRule(int r){
-    statusLabel->setText(QString("Corriendo Regla %1.").arg(r));
+    statusLabel->setText(QString("Corriendo Regla %1 ...").arg(r));
 }
 
 void MainWindow::finishScan(){
     // Desbloqueando los elementos para que se puedan editar
+    ui->menuBar->setEnabled(true);
     ui->playPushButton->setEnabled(true);
     ui->lengthLineEdit->setEnabled(true);
     ui->ruleLineEdit->setEnabled(true);

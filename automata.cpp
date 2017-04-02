@@ -5,6 +5,8 @@
 #include <QTimer>
 #include <GL/glu.h>
 
+#include <stdio.h>
+
 Automata::Automata(QWidget *parent) : QOpenGLWidget(parent){
     setWindowFlags(Qt::Window);
     setWindowTitle(tr("Automata"));
@@ -34,6 +36,13 @@ Automata::~Automata(){
         if( m_Work != NULL )
             delete m_Work;
     }
+}
+
+bool *Automata::getInitTape(){
+    if( m_vTape.isEmpty() )
+        return NULL;
+
+    return m_vTape[0];
 }
 
 void Automata::setSize(uint s){
@@ -98,6 +107,76 @@ void Automata::reset(){
     }
 
     m_nState = STOP;
+}
+
+bool Automata::saveTape(QString filename){
+    FILE *f = fopen(filename.toStdString().c_str(), "wb");
+    uchar n;
+
+    if( f == NULL )
+        return false;
+
+    fwrite((char *)&m_nSize, 4, 1, f);
+    fwrite((char *)&m_nRule, 2, 1, f);
+    fwrite((char *)&m_nTime, 8, 1, f);
+
+    for(uint i=0;i<m_nSize;i++){
+        if( i%8 == 0 ){
+            if( i != 0 ){
+                fwrite(&n, 1, 1, f);
+            }
+            n = m_vTape[0][i] ? 1 : 0;
+        }
+        else
+            n = 2*n + (m_vTape[0][i] ? 1 : 0);
+    }
+    if( m_nSize%8 != 0 )
+        n = n<<(8-m_nSize%8);
+    fwrite(&n, 1, 1, f);
+
+    fclose(f);
+    return true;
+}
+
+bool Automata::readTape(QString filename){
+    FILE *f = fopen(filename.toStdString().c_str(), "rb");
+    uchar b;
+
+    if( f == NULL )
+        return false;
+
+    if( fread(&m_nSize, 1, 4, f) != 4 )
+        return false;
+    if( fread(&m_nRule, 1, 2, f) != 2 )
+        return false;
+    if( fread(&m_nTime, 1, 8, f) != 8 )
+        return false;
+
+    bool t[m_nSize];
+
+    for(uint i=0;i<m_nSize/8;i++){
+        if( fread(&b, 1, 1, f) != 1 )
+            return false;
+        for(int j=7;j>=0;j--){
+            t[i*8 + j] = (b%2 == 1);
+            b /= 2;
+        }
+    }
+
+    if( m_nSize%8 != 0 ){
+        if( fread(&b, 1, 1, f) != 1 )
+            return false;
+        b = b>>(8-m_nSize%8);
+        for(uint j=1;j<=m_nSize%8;j++){
+            t[m_nSize - j] = (b%2 == 1);
+            b /= 2;
+        }
+    }
+
+    setTape(t);
+
+    fclose(f);
+    return true;
 }
 
 void Automata::Idle(){
