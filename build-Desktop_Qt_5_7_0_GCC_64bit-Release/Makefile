@@ -713,6 +713,7 @@ moc_mainwindow.cpp: ../automata.h \
 		../worker.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/QObject \
 		../frecuencia.h \
+		../universescanner.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLabel \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlabel.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
@@ -1200,6 +1201,7 @@ main.o: ../main.cpp ../mainwindow.h \
 		../worker.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/QObject \
 		../frecuencia.h \
+		../universescanner.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLabel \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlabel.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
@@ -1346,6 +1348,7 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		../worker.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/QObject \
 		../frecuencia.h \
+		../universescanner.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLabel \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlabel.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
@@ -1752,7 +1755,51 @@ universescanner.o: ../universescanner.cpp ../universescanner.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qmetatype.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qvarlengtharray.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qcontainerfwd.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qobject_impl.h
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/QDebug \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qdebug.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qhash.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qmap.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qtextstream.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qiodevice.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qlocale.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qvariant.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qshareddata.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qvector.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qpoint.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qset.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/QImage \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qimage.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qcolor.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qrgb.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qrgba64.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qrect.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qmargins.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qsize.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpixelformat.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtransform.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qmatrix.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpolygon.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qregion.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qdatastream.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qline.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpainterpath.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/QPainter \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpainter.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpixmap.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qbrush.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontinfo.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfont.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/QPen
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o universescanner.o ../universescanner.cpp
 
 qrc_resources.o: qrc_resources.cpp 
