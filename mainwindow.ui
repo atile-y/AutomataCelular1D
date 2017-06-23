@@ -359,6 +359,7 @@
      <string>Ayuda</string>
     </property>
     <addaction name="actionAcerca_de"/>
+    <addaction name="actionAcerca_de_Qt"/>
    </widget>
    <addaction name="menu_Archivo"/>
    <addaction name="menuEditar"/>
@@ -408,6 +409,11 @@
   <action name="actionAcerca_de">
    <property name="text">
     <string>Acerca de</string>
+   </property>
+  </action>
+  <action name="actionAcerca_de_Qt">
+   <property name="text">
+    <string>Acerca de Qt</string>
    </property>
   </action>
  </widget>

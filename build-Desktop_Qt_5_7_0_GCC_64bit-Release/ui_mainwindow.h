@@ -38,6 +38,7 @@ public:
     QAction *actionTodas;
     QAction *actionEquivalentes;
     QAction *actionAcerca_de;
+    QAction *actionAcerca_de_Qt;
     QWidget *centralWidget;
     QPushButton *playPushButton;
     QPushButton *pausePushButton;
@@ -82,6 +83,8 @@ public:
         actionEquivalentes->setObjectName(QStringLiteral("actionEquivalentes"));
         actionAcerca_de = new QAction(MainWindow);
         actionAcerca_de->setObjectName(QStringLiteral("actionAcerca_de"));
+        actionAcerca_de_Qt = new QAction(MainWindow);
+        actionAcerca_de_Qt->setObjectName(QStringLiteral("actionAcerca_de_Qt"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         playPushButton = new QPushButton(centralWidget);
@@ -227,6 +230,7 @@ public:
         menuExplorar_reglas->addAction(actionTodas);
         menuExplorar_reglas->addAction(actionEquivalentes);
         menuAyuda->addAction(actionAcerca_de);
+        menuAyuda->addAction(actionAcerca_de_Qt);
 
         retranslateUi(MainWindow);
 
@@ -247,6 +251,7 @@ public:
         actionEquivalentes->setText(QApplication::translate("MainWindow", "Equivalentes", 0));
         actionEquivalentes->setShortcut(QApplication::translate("MainWindow", "Ctrl+E", 0));
         actionAcerca_de->setText(QApplication::translate("MainWindow", "Acerca de", 0));
+        actionAcerca_de_Qt->setText(QApplication::translate("MainWindow", "Acerca de Qt", 0));
         playPushButton->setText(QString());
         pausePushButton->setText(QString());
         stopPushButton->setText(QString());

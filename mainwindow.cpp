@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(automata, SIGNAL(endTime()), this, SLOT(takeScreenshot()));
 
     connect(ui->actionSalir, SIGNAL(triggered(bool)), this, SLOT(close()));
+    connect(ui->actionAcerca_de_Qt, SIGNAL(triggered(bool)), qApp, SLOT(aboutQt()));
 
     setFixedSize(geometry().width(), geometry().height());
     move(197, 25);
