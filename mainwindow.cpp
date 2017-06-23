@@ -4,6 +4,7 @@
 #include <QCloseEvent>
 #include <QDebug>
 #include <QFileDialog>
+#include <QMessageBox>
 
 #include <chrono>
 
@@ -170,6 +171,36 @@ void MainWindow::on_actionEquivalentes_triggered(){
     ui->initTapeGroupBox->setEnabled(false);
 
     emit startScan(EQUIVALENTES);
+}
+
+void MainWindow::on_actionAcerca_de_triggered(){
+    QString str;
+    str =   "<h3 style=\"text-align: center\"><b>Instituto Politécnico Nacional</b></h3>"
+            "<h3 style=\"text-align: center\"><b>Escuela Superior de Cómputo</b></h3>"
+            "<table style=\"margin: 25px 30px 25px 0px\">"
+                "<tr>"
+                    "<td style=\"padding-right: 20px\">Unidad de Aprendizaje:</td>"
+                    "<td><b>Sistemas Complejos</b></td>"
+                "</tr>"
+                "<tr>"
+                    "<td>Grupo:</td>"
+                    "<td><b>3CM5</b></td>"
+                "</tr>"
+                "<tr>"
+                    "<td>Periodo:</td>"
+                    "<td><b>2017/2</b></td>"
+                "</tr>"
+                "<tr>"
+                    "<td>Desarrollado por:</td>"
+                    "<td><b>Alejandro Alberto Yescas Benítez</b></td>"
+                "</tr>"
+                "<tr>"
+                    "<td>Correo:</td>"
+                    "<td><b>alex.yescas.b@gmail.com</b></td>"
+                "</tr>"
+            "</table>";
+
+    QMessageBox::about(this, tr("Acerca de"), str);
 }
 
 void MainWindow::on_lengthLineEdit_editingFinished(){

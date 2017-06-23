@@ -37,6 +37,7 @@ public:
     QAction *actionSalir;
     QAction *actionTodas;
     QAction *actionEquivalentes;
+    QAction *actionAcerca_de;
     QWidget *centralWidget;
     QPushButton *playPushButton;
     QPushButton *pausePushButton;
@@ -58,6 +59,7 @@ public:
     QMenu *menu_Archivo;
     QMenu *menuEditar;
     QMenu *menuExplorar_reglas;
+    QMenu *menuAyuda;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -78,6 +80,8 @@ public:
         actionTodas->setObjectName(QStringLiteral("actionTodas"));
         actionEquivalentes = new QAction(MainWindow);
         actionEquivalentes->setObjectName(QStringLiteral("actionEquivalentes"));
+        actionAcerca_de = new QAction(MainWindow);
+        actionAcerca_de->setObjectName(QStringLiteral("actionAcerca_de"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         playPushButton = new QPushButton(centralWidget);
@@ -205,6 +209,8 @@ public:
         menuEditar->setObjectName(QStringLiteral("menuEditar"));
         menuExplorar_reglas = new QMenu(menuEditar);
         menuExplorar_reglas->setObjectName(QStringLiteral("menuExplorar_reglas"));
+        menuAyuda = new QMenu(menuBar);
+        menuAyuda->setObjectName(QStringLiteral("menuAyuda"));
         MainWindow->setMenuBar(menuBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
@@ -212,6 +218,7 @@ public:
 
         menuBar->addAction(menu_Archivo->menuAction());
         menuBar->addAction(menuEditar->menuAction());
+        menuBar->addAction(menuAyuda->menuAction());
         menu_Archivo->addAction(actionAbrir_Automata);
         menu_Archivo->addAction(actionGuardar_Automata);
         menu_Archivo->addSeparator();
@@ -219,6 +226,7 @@ public:
         menuEditar->addAction(menuExplorar_reglas->menuAction());
         menuExplorar_reglas->addAction(actionTodas);
         menuExplorar_reglas->addAction(actionEquivalentes);
+        menuAyuda->addAction(actionAcerca_de);
 
         retranslateUi(MainWindow);
 
@@ -238,6 +246,7 @@ public:
         actionTodas->setShortcut(QApplication::translate("MainWindow", "Ctrl+A", 0));
         actionEquivalentes->setText(QApplication::translate("MainWindow", "Equivalentes", 0));
         actionEquivalentes->setShortcut(QApplication::translate("MainWindow", "Ctrl+E", 0));
+        actionAcerca_de->setText(QApplication::translate("MainWindow", "Acerca de", 0));
         playPushButton->setText(QString());
         pausePushButton->setText(QString());
         stopPushButton->setText(QString());
@@ -253,6 +262,7 @@ public:
         menu_Archivo->setTitle(QApplication::translate("MainWindow", "&Archivo", 0));
         menuEditar->setTitle(QApplication::translate("MainWindow", "&Editar", 0));
         menuExplorar_reglas->setTitle(QApplication::translate("MainWindow", "Explorar reglas", 0));
+        menuAyuda->setTitle(QApplication::translate("MainWindow", "Ayuda", 0));
     } // retranslateUi
 
 };

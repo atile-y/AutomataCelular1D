@@ -34,6 +34,7 @@ private slots:
     void on_actionGuardar_Automata_triggered();
     void on_actionTodas_triggered();
     void on_actionEquivalentes_triggered();
+    void on_actionAcerca_de_triggered();
     void on_lengthLineEdit_editingFinished();
     void on_ruleLineEdit_editingFinished();
     void on_timeLineEdit_editingFinished();
